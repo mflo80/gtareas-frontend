@@ -1,0 +1,36 @@
+.registrar{
+    color: bisque;
+    margin-top: 3rem;
+}
+
+.registro{
+    color: yellow;
+}
+
+.login{
+    color: orange;
+}
+
+.error_message{
+    margin-top: 5rem;
+}
+
+
+@media only screen and (max-height: 800px){
+    .formulario {
+        top: 35%;
+    }
+}
+
+
+@media only screen and (max-height: 700px) {
+    .formulario {
+        top: 35%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    .formulario {
+        top: 35%;
+    }
+}

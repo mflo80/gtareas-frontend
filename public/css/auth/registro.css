@@ -1,0 +1,31 @@
+.formulario {
+    top: 35%;
+}
+
+.btn-borrar{
+    color: wheat;
+}
+
+.btn-registrar{
+    color: yellow;
+}
+
+
+@media only screen and (max-height: 800px){
+    .formulario {
+        top: 30%;
+    }
+}
+
+
+@media only screen and (max-height: 700px) {
+    .formulario {
+        top: 28%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    .formulario {
+        top: 26%;
+    }
+}
