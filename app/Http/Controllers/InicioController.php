@@ -9,6 +9,9 @@ class InicioController extends Controller
 {
     public function index()
     {
+        $userData = session('gtuserdata');
+        $token = $userData['token'] ?? null;
+
         $token = $this->getActiveUserToken(); // Obtiene el token del usuario activo
 
         $response = Http::withHeaders([
@@ -32,13 +35,6 @@ class InicioController extends Controller
                 'message' => "Error al obtener las tareas",
             ]);
         }
-    }
-
-    public function getActiveUserToken()
-    {
-        $userData = Cookie::get('token');
-        $token = json_decode($userData)->token;
-        return $token;
     }
 
     public function ayuda()
