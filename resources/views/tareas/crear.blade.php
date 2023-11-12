@@ -8,7 +8,7 @@
             <legend>Crear Tarea</legend>
         </div>
 
-        <form id="crear-tarea" action="crear-tarea" method="post">
+        <form method="POST" id="crear-tarea" action="{{ route('tareas.crear') }}">
             @csrf
 
             <div class="titulo-input">
@@ -51,8 +51,9 @@
 
             <div class="btn-grupo">
                 <button type="button" class="btn btn-primary btn-block btn-large btn-borrar"
-                    onClick="location.href='crear-tarea'">Borrar</button>
-                <button type="submit" class="btn btn-primary btn-block btn-large btn-registrar">Crear</button>
+                    onClick="location.href='crear-tarea'">Vaciar</button>
+                <button type="button" class="btn btn-primary btn-block btn-large btn-registrar"
+                    data-toggle="modal" data-target="#confirmCrearModal">Crear</button>
             </div>
         </form>
     </div> <!-- Fin Clase Formulario Crear -->
@@ -63,6 +64,24 @@
                 <p id="error">{{ $message }}</p>
             @break
         @endforeach
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmCrearModal" tabindex="-1" role="dialog" aria-labelledby="confirmCrearModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="confirmCrearModalLabel">Confirmar crear tarea</h5>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que quieres crear esta tarea?
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <a href="#" class="btn btn-primary" id="confirmCrearButton">Si</a>
+            </div>
+        </div>
+        </div>
     </div>
 
 </div> <!-- Fin Clase Contenedor Crear -->

@@ -2,9 +2,9 @@
 
 @section('gtareas-inicio')
 
-<div class="sectores">
-    <h1>Historial de los Comentarios</h1>
-</div>
+    <div class="paginas-subtitulo">
+        <h1>Historial de los Comentarios</h1>
+    </div>
 
 <script>
     window.document.title = 'Gestor de Tareas - Historial Comentarios';

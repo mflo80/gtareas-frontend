@@ -12,6 +12,6 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null : getenv('GTLOGIN_WEB');
+        return $request->expectsJson() ? null : route('auth.login');
     }
 }

@@ -3,17 +3,6 @@
 var campoFechaHoraInicio = document.getElementById("fecha-inicio");
 var campoFechaHoraFin = document.getElementById("fecha-fin");
 
-// Obtener la fecha y hora actual
-function getCurrentDateTime() {
-    var fechaHoraActual = new Date();
-    fechaHoraActual.setHours(fechaHoraActual.getHours() - 3);
-    return fechaHoraActual.toISOString().slice(0, 16);
-}
-
-// Inicializar el campo de fecha y hora
-campoFechaHoraInicio.value = getCurrentDateTime();
-campoFechaHoraFin.value = getCurrentDateTime();
-
 // Funcion para manejar el evento input
 function handleInput(e) {
     if (!e.target.value) {
@@ -67,7 +56,13 @@ textarea.addEventListener('input', () => {
 // Modal de confirmación de eliminación y modificación
 
 $(document).ready(function() {
-    $('#confirmCrearButton').on('click', function() {
-        $('#crear-tarea').submit();
+    $('#confirmModificarButton').on('click', function() {
+        $('#formulario').submit();
+    });
+
+    $('#confirmDeleteButton').on('click', function() {
+        $('#deleteForm').submit();
     });
 });
+
+

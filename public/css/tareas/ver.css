@@ -1,0 +1,106 @@
+.formulario-ver{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sectores-comentarios {
+    display: grid;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    height: auto;
+    padding: .5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    grid-template-columns: 45rem 45rem;
+    grid-template-rows: min-content min-content min-content;
+    grid-template-areas:
+        "sector-1 sector-2";
+    grid-gap: 1rem;
+}
+
+.sector-comentario {
+    margin: 2rem 1rem 1rem 1rem;
+    width: calc(50% - 1rem);
+    flex: 1;
+    margin-bottom: 3rem;
+    background-color: #ccc;
+    border: 0.2rem solid black;
+    padding: .5rem;
+    overflow: auto;
+}
+
+.sector-comentario-1{
+    flex-direction: column;
+    width: 45rem;
+    height: 55rem;
+    margin-left: 2.1rem;
+    margin-bottom: 1rem;
+    font: 1.6rem sans-serif;
+    background-color: rgb(1, 51, 92);
+    border: 0.2rem solid black;
+    flex: 1;
+}
+
+.sector-comentario-2{
+    width: 45rem;
+    margin-left: 2.1rem;
+    font: 1.6rem sans-serif;
+    background-color: rgb(1, 51, 92);
+    border: 0.2rem solid black;
+    flex: 1;
+}
+
+.comentario-titulo{
+    display: flex;
+    font-size: 2rem;
+    color: rgb(163, 163, 163);
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(15, 19, 29);
+    height: 3rem;
+    margin-bottom: .5rem;
+}
+
+.comentario-ver table{
+    width: 98%;
+    height: auto;
+    margin-left: 1%;
+    margin-right: 1%;
+    margin-bottom: .5rem;
+    border-spacing: 0;
+    border: .2rem solid #333;
+    background-color: #f2f2f2;
+}
+
+.botones-comentarios{
+    background-color: rgb(1, 51, 92);
+}
+
+@media screen and (max-width: 600px) {
+    .sectores-comentarios {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        padding: .5rem;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        flex-direction: column;
+        width: auto;
+        height: auto;
+        min-height: 100vh;
+   }
+
+    .sector-comentario {
+        margin: 2rem 1rem 1rem 1rem;
+        flex: 1;
+        margin-bottom: 3rem;
+        border: 0.2rem solid black;
+        padding: .5rem;
+        overflow: auto;
+        width: 95%;
+    }
+}
