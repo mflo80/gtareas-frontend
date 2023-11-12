@@ -1,8 +1,8 @@
-# gtareas-login
+# gtareas-frontend
 
 Proyecto Gestor de Tareas / TA2 - Programación II
 
-El presente contiene el código del Login Frontend (creado con Laravel).
+El presente contiene el código de las Tareas Frontend (creado con Laravel).
 
 Herramientas utilizadas para realizar el mismo:
 - Docker / Compose
