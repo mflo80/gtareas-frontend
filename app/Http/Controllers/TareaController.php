@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class TareaController extends Controller
@@ -23,11 +24,86 @@ class TareaController extends Controller
             $tareas = $tareas['tareas'] ?? [];
 
             $tareasPorCategoria = [];
+            $estados = explode(',', getenv('ESTADOS'));
+
             foreach ($tareas as $tarea) {
-                $tareasPorCategoria[$tarea['categoria']][] = $tarea;
+                if (in_array($tarea['estado'], [$estados[0], $estados[1], $estados[2]])) {
+                    $tareasPorCategoria[$tarea['categoria']][] = $tarea;
+                }
             }
 
             return view('tareas.inicio', ['tareasPorCategoria' => $tareasPorCategoria], ['usuario' => $usuario]);
+        }
+
+        return redirect()->to('logout')->withErrors([
+            'message' => "Error al obtener las tareas.",
+        ]);
+    }
+
+    public function buscar(Request $request)
+    {
+        $token = $this->getActiveUserToken();
+        $usuario = $this->getActiveUserData();
+
+        $filasPorPagina = 15;
+
+        if(Cache::has('filasPorPagina')){
+            $filasPorPagina = Cache::get('filasPorPagina');
+        }
+
+        $filasPorPagina = $request->input('filasPorPagina', $filasPorPagina); // Usa el valor de 'filasPorPagina' que viene en la solicitud
+        $paginaActual = $request->input('pagina', 1); // Página por defecto si no se proporciona
+
+        Cache::put('filasPorPagina', $filasPorPagina);
+
+        $response = Http::withHeaders([
+            "Accept" => "application/json",
+            "Authorization" => "Bearer $token"
+        ])->get(getenv('GTAPI_TAREAS'), [
+            'filasPorPagina' => $filasPorPagina,
+            'pagina' => $paginaActual,
+        ]);
+
+        if ($response->successful()) {
+            $tareas = json_decode($response->body(), true);
+            $tareas = $tareas['tareas'] ?? [];
+
+            $totalTareas = count($tareas);
+            $totalPaginas = ceil($totalTareas / $filasPorPagina);
+
+            if($paginaActual > $totalPaginas){
+                return redirect()->to('error.404');
+            }
+
+            $tareas = array_slice($tareas, ($paginaActual - 1) * $filasPorPagina, $filasPorPagina);
+
+            $response = Http::withHeaders([
+                "Accept" => "application/json",
+                "Authorization" => "Bearer $token"
+            ])->get(getenv('GTOAUTH_USUARIOS'));
+
+            if ($response->successful()) {
+                $usuarios = json_decode($response->body(), true);
+                $usuarios = $usuarios['usuarios'] ?? [];
+
+                foreach ($tareas as &$tarea) {
+                    $usuarioCreadorId = $tarea['id_usuario'];
+                    foreach ($usuarios as $usuario) {
+                        if ($usuario['id'] == $usuarioCreadorId) {
+                            $tarea['creador_nombre'] = $usuario['nombre'];
+                            $tarea['creador_apellido'] = $usuario['apellido'];
+                        }
+                    }
+                }
+            }
+
+            return view('tareas.buscar', [
+                'tareas' => $tareas,
+                'usuario' => $usuario,
+                'paginaActual' => $paginaActual,
+                'filasPorPagina' => $filasPorPagina,
+                'totalPaginas' => $totalPaginas
+            ]);
         }
 
         return redirect()->to('logout')->withErrors([
@@ -158,6 +234,7 @@ class TareaController extends Controller
         $tarea['fecha_hora_fin'] = $fechaHoraFin->format('Y-m-d H:i:s');
 
         $tarea['id_usuario'] = $usuario['id'];
+        $tarea['id_usuario_modificacion'] = $usuario['id'];
 
         $response = Http::withHeaders([
             "Accept" => "application/json",
@@ -189,6 +266,7 @@ class TareaController extends Controller
         ]);
 
         $tarea['id_usuario'] = $usuario['id'];
+        $tarea['id_usuario_modificacion'] = $usuario['id'];
 
         $response = Http::withHeaders([
             "Accept" => "application/json",

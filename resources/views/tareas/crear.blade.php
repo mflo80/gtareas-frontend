@@ -30,22 +30,26 @@
             <div class="categoria">
                 <label for="categoria">Categoría:</label>
                 <select id="categoria" name="categoria">
-                    <option value="Análisis">Análisis</option>
-                    <option value="Diseño">Diseño</option>
-                    <option value="Implementación">Implementación</option>
-                    <option value="Verificación">Verificación</option>
-                    <option value="Mantenimiento">Mantenimiento</option>
+                    @php
+                        $categorias = explode(',', getenv('CATEGORIAS'));
+                    @endphp
+                    @foreach ( $categorias as $categoria) {
+                        <option value={{ $categoria }}>{{ $categoria }}</option>
+                    }
+                    @endforeach
                 </select>
             </div>
 
-            <div class="categoria">
+            <div class="estado">
                 <label for="estado">Estado:</label>
                 <select id="estado" name="estado">
-                    <option value="Activa">Activa</option>
-                    <option value="Atrasada">Atrasada</option>
-                    <option value="Cancelada">Cancelada</option>
-                    <option value="En espera">En espera</option>
-                    <option value="Finalizada">Finalizada</option>
+                    @php
+                        $estados = explode(',', getenv('ESTADOS'));
+                    @endphp
+                    @foreach ( $estados as $estado) {
+                        <option value={{ $estado }}>{{ $estado }}</option>
+                    }
+                    @endforeach
                 </select>
             </div>
 

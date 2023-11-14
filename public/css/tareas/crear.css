@@ -84,6 +84,7 @@ input[type="datetime"]::-webkit-clear-button {
     outline: none;
 }
 
+.estado,
 .categoria {
     display: flex;
     align-items: center;
@@ -95,6 +96,7 @@ input[type="datetime"]::-webkit-clear-button {
     color: white;
 }
 
+.estado select,
 .categoria select {
     width: 80%;
     height: 4rem;

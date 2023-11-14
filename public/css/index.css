@@ -301,4 +301,35 @@ fieldset[disabled] .btn-modal:hover {
     border-color: #375896
 }
 
+/* BOTONES PAGINACION */
+
+.btn-paginacion {
+    font-size: 1.5rem;
+    color: black;
+    width: 4rem;
+    height: 2.6rem;
+    font-weight: bold;
+    background-color: #4a77d4;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border: .1rem solid #1b1b1b;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+.btn-paginacion:hover {
+    color: white;
+    background-color: #0dbb0d;
+}
+
+.btn-paginacion:disabled {
+    color: gray;
+    background-color: transparent;
+}
+
+
 

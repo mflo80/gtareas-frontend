@@ -32,22 +32,26 @@
             <div class="categoria">
                 <label for="categoria">Categoría:</label>
                 <select id="categoria" name="categoria">
-                    <option value="Análisis" {{ $tarea['categoria'] == 'Análisis' ? 'selected' : '' }}>Análisis</option>
-                    <option value="Diseño" {{ $tarea['categoria'] == 'Diseño' ? 'selected' : '' }}>Diseño</option>
-                    <option value="Implementación" {{ $tarea['categoria'] == 'Implementación' ? 'selected' : '' }}>Implementación</option>
-                    <option value="Verificación" {{ $tarea['categoria'] == 'Verificación' ? 'selected' : '' }}>Verificación</option>
-                    <option value="Mantenimiento" {{ $tarea['categoria'] == 'Mantenimiento' ? 'selected' : '' }}>Mantenimiento</option>
+                    @php
+                        $categorias = explode(',', getenv('CATEGORIAS'));
+                    @endphp
+                    @foreach ( $categorias as $categoria) {
+                        <option value={{ $categoria }} {{ $tarea['categoria'] == $categoria ? 'selected' : '' }}>{{ $categoria }}</option>
+                    }
+                    @endforeach
                 </select>
             </div>
 
             <div class="categoria">
                 <label for="estado">Estado:</label>
                 <select id="estado" name="estado">
-                    <option value="Activa" {{ $tarea['estado'] == 'Activa' ? 'selected' : '' }}>Activa</option>
-                    <option value="Atrasada" {{ $tarea['estado'] == 'Atrasada' ? 'selected' : '' }}>Atrasada</option>
-                    <option value="Cancelada" {{ $tarea['estado'] == 'Cancelada' ? 'selected' : '' }}>Cancelada</option>
-                    <option value="En espera" {{ $tarea['estado'] == 'En espera' ? 'selected' : '' }}>En espera</option>
-                    <option value="Finalizada" {{ $tarea['estado'] == 'Finalizada' ? 'selected' : '' }}>Finalizada</option>
+                    @php
+                        $estados = explode(',', getenv('ESTADOS'));
+                    @endphp
+                    @foreach ( $estados as $estado) {
+                        <option value={{ $estado }} {{ $tarea['estado'] == $estado ? 'selected' : '' }}>{{ $estado }}</option>
+                    }
+                    @endforeach
                 </select>
             </div>
 

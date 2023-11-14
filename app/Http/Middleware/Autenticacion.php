@@ -25,7 +25,7 @@ class Autenticacion
             $token = $datos['token'];
             $ultimo_acceso = $datos['ultimo_acceso'];
 
-            if ($ultimo_acceso || now()->diffInMinutes($ultimo_acceso) >= 20) {
+            if ($ultimo_acceso || now()->diffInMinutes($ultimo_acceso) >= getenv('SESSION_LASTACCESS')) {
                 $response = Http::withHeaders(['Authorization' => 'Bearer ' . $token])
                     ->get(getenv('GTOAUTH_AUTENTICADO'));
 

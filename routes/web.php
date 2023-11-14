@@ -20,6 +20,7 @@ Route::controller(InicioController::class)->middleware('autenticacion')->group(f
 
 Route::controller(TareaController::class)->middleware('autenticacion')->group(function () {
     Route::get('inicio', 'index')->name('tareas.inicio');
+    Route::get('buscar', 'buscar')->name('tareas.buscar');
     Route::get('ver-tarea-{id}', 'ver')->name('tareas.ver');
     Route::get('crear-tarea', 'form_crear')->name('tareas.crear');
     Route::post('crear-tarea', 'guardar');
