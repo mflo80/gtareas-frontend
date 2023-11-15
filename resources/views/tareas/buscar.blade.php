@@ -74,6 +74,7 @@
                 '{{ route('tareas.buscar', ['filasPorPagina' => $filasPorPagina, 'pagina' => $totalPaginas]) }}'"
                 @if ($paginaActual == $totalPaginas) disabled @endif>&#x23ED;</button>
         </div>
+    </div> <!-- Fin contenedor-buscar -->
 
 <script>
     window.document.title = 'Gestor de Tareas - Buscar';

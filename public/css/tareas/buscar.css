@@ -89,7 +89,9 @@
 }
 
 .paginacion{
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: -moz-fit-content;
     width: fit-content;
     margin-left: auto;
@@ -99,6 +101,13 @@
     font-size: 1.8rem;
     text-shadow : .1rem .1rem .1rem black;
 }
+
+.paginacion span,
+.paginacion button{
+    margin-left: .3rem;
+    margin-right: .3rem;
+}
+
 
 @media only screen and (max-width: 1366px) {
     .tabla-buscar {

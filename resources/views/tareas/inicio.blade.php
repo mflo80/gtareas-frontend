@@ -49,7 +49,7 @@
                                     </span>
                                     <span class="tarea-usuarios">
                                         <img class="icono-usuario" src="{{ asset('/img/usuario-96.png') }}" alt="Ícono de Usuario" />
-                                        <span>{{ rand(1, 10) }}</span>
+                                        <span>{{ $tarea['usuarios_asignados'] }}</span>
                                     </span>
                                 </td>
                             </tr>
