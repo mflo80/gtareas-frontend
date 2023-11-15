@@ -169,7 +169,7 @@ input[type="datetime"]::-webkit-clear-button {
 }
 
 .usuarios select{
-    width: 70%;
+    width: 77.4%;
     height: 3.8rem;
     margin-left: -4rem;
     border: none;
@@ -229,8 +229,26 @@ input[type="datetime"]::-webkit-clear-button {
 }
 
 .btn-agregar{
-    width: 7.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4.5rem;
+    height: 4rem;
     font-size: 1.2rem;
+}
+
+.btn-agregar img {
+    width: 3rem;
+    height: 2.5rem;
+}
+
+.btn-agregar:hover img {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.btn-agregar:active img {
+    transform: scale(1.4);
 }
 
 .texto-grupo {

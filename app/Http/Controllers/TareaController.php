@@ -140,7 +140,8 @@ class TareaController extends Controller
                 'usuario' => $usuario,
                 'paginaActual' => $paginaActual,
                 'filasPorPagina' => $filasPorPagina,
-                'totalPaginas' => $totalPaginas
+                'totalPaginas' => $totalPaginas,
+                'totalTareas' => $totalTareas
             ]);
         }
 

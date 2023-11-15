@@ -65,7 +65,8 @@
                         </div>
                         <div class="usuarios-todos" id="todosUsuarios">
                             <select id="resultadosBusqueda"></select>
-                            <button type="button" class="btn-primary btn-block btn-large btn-agregar" id="agregarUsuario">Agregar</button>
+                            <button type="button" class="btn-primary btn-block btn-large btn-agregar" id="agregarUsuario">
+                                <img src="{{asset('/img/agregar-usuario.png')}}" alt="Agregar"></button>
                             <div id="todosUsuarios" class="usuarios-seleccionados-lista" style="display: none;">
                                 @foreach ($usuarios as $usuarios)
                                     <div class="usuario" data-id="{{ $usuarios['id'] }}">{{ $usuarios['nombre'] }} {{ $usuarios['apellido'] }}</div>
