@@ -1,0 +1,144 @@
+.contenedor-buscar {
+    height: auto;
+    overflow-y: auto;
+    margin-bottom: 6rem;
+}
+
+.paginas-subtitulo{
+    margin-top: 6rem;
+    margin-bottom: 5rem;
+}
+
+.formulario-buscar{
+    margin-bottom: 1rem;
+}
+
+.formulario-buscar-titulo{
+    font-size: 1.8rem;
+    color: wheat;
+    text-align: center;
+    text-shadow: .1rem .1rem .1rem black;
+    margin-left: 4rem;
+}
+
+.tabla-buscar{
+    width: 96%;
+    margin-left: 2%;
+    margin-bottom: 1rem;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: .2rem solid #000000;
+}
+
+.tabla-buscar th{
+    font-size: 85%;
+    text-align: center;
+    border-bottom: .2rem solid #000000;
+}
+
+.tabla-buscar td{
+    border-bottom: .1rem solid #b4b0b0;
+}
+
+.columna-id {
+    width: 4%;
+}
+
+.columna-titulo {
+    width: 20%;
+}
+
+.columna-fecha-cracion,
+.columna-fecha-inicio,
+.columna-fecha-fin{
+    width: 8%;
+}
+
+.columna-categoria,
+.columna-estado{
+    width: 7%;
+}
+
+.columna-usuario{
+    width: 16%;
+}
+
+.columna-opciones{
+    width: 8%;
+}
+
+.fila-id,
+.fila-titulo,
+.fila-fecha-creacion,
+.fila-fecha-inicio,
+.fila-fecha-fin,
+.fila-categoria,
+.fila-estado,
+.fila-usuario,
+.fila-opciones{
+    text-align: center;
+    font-size: 75%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fila-id{
+    background-color: rgb(230, 230, 243);
+    font-weight: bold;
+}
+
+.paginacion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    color: wheat;
+    font-size: 1.8rem;
+    text-shadow : .1rem .1rem .1rem black;
+}
+
+.paginacion span,
+.paginacion button{
+    margin-left: .3rem;
+    margin-right: .3rem;
+}
+
+
+@media only screen and (max-width: 1366px) {
+    .tabla-buscar {
+        overflow-x: auto;
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .tabla-buscar {
+        overflow-x: auto;
+        display: block;
+    }
+
+    .tabla-buscar th{
+        font-size: 80%;
+    }
+
+    .tabla-buscar tr{
+        font-size: 70%;
+    }
+
+    .columna-fecha-cracion,
+    .columna-fecha-inicio,
+    .columna-fecha-fin{
+        display: none;
+    }
+
+    .fila-fecha-creacion,
+    .fila-fecha-inicio,
+    .fila-fecha-fin{
+        display: none;
+    }
+}

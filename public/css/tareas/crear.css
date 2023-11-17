@@ -196,13 +196,13 @@ input[type="datetime"]::-webkit-clear-button {
     background-color: rgb(4, 37, 63);
 }
 
-.tabla-columna-id{
-    width: 3rem;
+table td{
     text-align: center;
+    vertical-align: middle;
 }
 
-.celdaId,
-.celdaEliminar {
+.tabla-columna-id{
+    width: 3rem;
     text-align: center;
 }
 

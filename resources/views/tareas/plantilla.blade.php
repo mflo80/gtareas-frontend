@@ -15,6 +15,7 @@
     <script src="{{ asset('js/externos/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/tareas/inicio.js') }}"></script>
     <script src="{{ asset('js/tareas/buscar.js') }}"></script>
+    <script src="{{ asset('js/tareas/historialTareas.js') }}"></script>
     <title>Gestor de Tareas</title>
 </head>
 
@@ -39,7 +40,7 @@
             <li><a href="ayuda" class="menu-opcion-5">Ayuda</a></li>
             <li><a href="logout" class="menu-opcion-6">Cerrar Sesión</a></li>
             <div class="usuario">
-                <a>({{ $usuario['nombre'] }} {{ $usuario['apellido'] }})</a>
+                <a>({{ $usuarioLogueado['nombre'] }} {{ $usuarioLogueado['apellido'] }})</a>
             </div>
         </ul>
         <a href="#" id="toggle" class="toggle"><img class="menu-img" src="{{ asset('/img/barra-de-menu.png') }}"

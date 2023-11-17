@@ -10,9 +10,9 @@ class ErrorController extends Controller
 {
     public function index()
     {
-        $usuario = $this->getActiveUserData();
+        $usuarioLogueado = $this->getActiveUserData();
 
-        return view('error.404', ['usuario' => $usuario]);
+        return view('error.404', ['usuarioLogueado' => $usuarioLogueado]);
     }
 
 }

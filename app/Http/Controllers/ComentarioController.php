@@ -11,7 +11,7 @@ class ComentarioController extends Controller
     public function index()
     {
         $token = $this->getActiveUserToken();
-        $usuario = $this->getActiveUserData();
+        $usuarioLogueado = $this->getActiveUserData();
 
         $response = Http::withHeaders([
             "Accept" => "application/json",

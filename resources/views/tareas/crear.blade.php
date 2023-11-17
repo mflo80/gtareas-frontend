@@ -57,8 +57,8 @@
 
                 <div class="formulario-derecha">
                     <div class="usuarios">
-                        <div id="usuarioLogueado" data-id="{{ $usuario['id'] }}" data-nombre="{{ $usuario['nombre'] }}"
-                            data-apellido="{{ $usuario['apellido'] }}" style="display: none;"></div>
+                        <div id="usuarioLogueado" data-id="{{ $usuarioLogueado['id'] }}" data-nombre="{{ $usuarioLogueado['nombre'] }}"
+                            data-apellido="{{ $usuarioLogueado['apellido'] }}" style="display: none;"></div>
                         <div class="usuarios-seleccionados" id="usuariosSeleccionados">
                             <label for="buscadorUsuarios">Usuarios:</label>
                             <input type="text" id="buscadorUsuarios" name="buscadorUsuarios" placeholder="Ingrese el nombre del usuario a buscar">
@@ -88,7 +88,6 @@
                         </div>
                     </div>
                 </div>
-
                 <input type="hidden" id="idsUsuarios" name="idsUsuarios">
             </div>
 
