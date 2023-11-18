@@ -60,10 +60,26 @@ class TareaController extends Controller
             $filasPorPagina = Cache::get('filasPorPagina');
         }
 
-        $filasPorPagina = $request->input('filasPorPagina', $filasPorPagina); // Usa el valor de 'filasPorPagina' que viene en la solicitud
-        $paginaActual = $request->input('pagina', 1); // Página por defecto si no se proporciona
+        if($filasPorPagina == null || $filasPorPagina == '' || $filasPorPagina == 0){
+            $filasPorPagina = 15;
+        }
 
+        $filasPorPagina = $request->input('filasPorPagina', $filasPorPagina);
+        $paginaActual = $request->input('pagina', 1);
         Cache::put('filasPorPagina', $filasPorPagina);
+
+        $ordenTareas = 'asc';
+
+        if(Cache::has('ordenTareas')){
+            $ordenTareas = Cache::get('ordenTareas');
+        }
+
+        if($ordenTareas == null || $ordenTareas == ''){
+            $ordenTareas = 'asc';
+        }
+
+        $ordenTareas = $request->input('ordenTareas', $ordenTareas);
+        Cache::put('ordenTareas', $ordenTareas);
 
         $response = Http::withHeaders([
             "Accept" => "application/json",
@@ -79,12 +95,25 @@ class TareaController extends Controller
             $tareas = json_decode($response->body(), true);
             $tareas = $tareas['tareas'] ?? [];
 
+            if($ordenTareas == 'desc'){
+                $tareas = array_reverse($tareas);
+            }
+
             $totalTareas = count($tareas);
 
-            $totalPaginas = ceil($totalTareas / $filasPorPagina);
+            $totalPaginas = ceil($totalTareas / intval($filasPorPagina));
 
             if($paginaActual > $totalPaginas){
                 return redirect()->to('error.404');
+            }
+
+            $tareasAsignadas = $this->getTareasAsignadas();
+
+            $idsTareas = [];
+            foreach ($tareasAsignadas as $tareaAsignadaUsuario) {
+                if ($tareaAsignadaUsuario['id_usuario_asignado'] == $usuarioLogueado['id']) {
+                    $idsTareas[] = $tareaAsignadaUsuario['id_tarea'];
+                }
             }
 
             $tareas = array_slice($tareas, ($paginaActual - 1) * $filasPorPagina, $filasPorPagina);
@@ -99,6 +128,10 @@ class TareaController extends Controller
                         $tarea['creador_apellido'] = $usuario['apellido'];
                     }
                 }
+
+                if (in_array($tarea['id'], $idsTareas)) {
+                    $tarea['tarea_asignada'] = 1;
+                }
             }
 
             return view('tareas.buscar', [
@@ -107,7 +140,8 @@ class TareaController extends Controller
                 'paginaActual' => $paginaActual,
                 'filasPorPagina' => $filasPorPagina,
                 'totalPaginas' => $totalPaginas,
-                'totalTareas' => $totalTareas
+                'totalTareas' => $totalTareas,
+                'ordenTareas' => $ordenTareas,
             ]);
         }
 
@@ -128,17 +162,66 @@ class TareaController extends Controller
 
         $valores = json_decode($response->body(), true);
 
-        if ($response->successful()) {
-            $tarea = json_decode($response->body(), true);
-            $tarea = $tarea['tarea'] ?? [];
+        if($response->getStatusCode() == 200){
+            $tarea = $valores['tarea'] ?? [];
 
-            $usuarios = $this->getUsuarios();
+            $usuarioCreadorId = $tarea['id_usuario'];
+
+            $response = Http::withHeaders([
+                "Accept" => "application/json",
+                "Authorization" => "Bearer $token"
+            ])->get(getenv('GTOAUTH_USUARIOS'));
+
+            $valores = json_decode($response->body(), true);
+
+            if($response->getStatusCode() == 200){
+                $usuarios = $valores['usuarios'] ?? [];
+                $usuarios = collect($usuarios)->sortBy('nombre');
+
+                $usuariosAsignados = [];
+                $valoresAsigna = [];
+
+                $response = Http::withHeaders([
+                    "Accept" => "application/json",
+                    "Authorization" => "Bearer $token"
+                ])->get(getenv('GTAPI_ASIGNA') . "/tarea/" . $tarea['id']);
+
+                $valoresAsigna = json_decode(   $response->body(), true);
+
+                if($response->getStatusCode() == 200){
+                    $tareaAsignada = $valoresAsigna['tarea_asignada'];
+
+                    foreach($usuarios as $usuario){
+                        foreach($tareaAsignada as $tareaAsignadaUsuario){
+                            if($usuario['id'] == $usuarioCreadorId){
+                                $usuarioCreador = $usuario;
+                            }
+                            if($usuario['id'] == $tareaAsignadaUsuario['id_usuario_asignado'] && $usuario['id'] != $usuarioCreadorId){
+                                $usuariosAsignados[] = $usuario;
+                            }
+                        }
+                    }
+                }
+
+                $idsUsuariosAsignados = array_map(function($usuario) {
+                    return $usuario['id'];
+                }, $usuariosAsignados);
+
+                if($usuarioLogueado['id'] != $usuarioCreadorId && !in_array($usuarioLogueado['id'], $idsUsuariosAsignados)){
+                    return redirect()->route('tareas.error')->withErrors([
+                        'message' => "No tiene permisos sobre esta tarea."
+                    ]);
+                }
+            }
 
             return view('tareas.ver', [
                 'id' => $id,
+                'tarea' => $tarea,
                 'usuarios' => $usuarios,
                 'usuarioLogueado' => $usuarioLogueado,
-                'tarea' => $tarea]);
+                'usuarioCreador' => $usuarioCreador,
+                'usuariosAsignados' => $usuariosAsignados,
+            ]);
         }
 
         return redirect()->route('tareas.error')->withErrors([
@@ -262,6 +345,8 @@ class TareaController extends Controller
         if($response->getStatusCode() == 200){
             $tarea = $valores['tarea'] ?? [];
 
+            $usuarioCreadorId = $tarea['id_usuario'];
+
             $response = Http::withHeaders([
                 "Accept" => "application/json",
                 "Authorization" => "Bearer $token"
@@ -273,24 +358,25 @@ class TareaController extends Controller
                 $usuarios = $valores['usuarios'] ?? [];
                 $usuarios = collect($usuarios)->sortBy('nombre');
 
+                $usuariosAsignados = [];
+                $valoresAsigna = [];
+
                 $response = Http::withHeaders([
                     "Accept" => "application/json",
                     "Authorization" => "Bearer $token"
                 ])->get(getenv('GTAPI_ASIGNA') . "/tarea/" . $tarea['id']);
 
-                $valoresAsigna = json_decode($response->body(), true);
+                $valoresAsigna = json_decode(   $response->body(), true);
 
                 if($response->getStatusCode() == 200){
                     $tareaAsignada = $valoresAsigna['tarea_asignada'];
-                    $usuarioCreador = [];
-                    $usuariosAsignados = [];
 
                     foreach($usuarios as $usuario){
                         foreach($tareaAsignada as $tareaAsignadaUsuario){
-                            if($usuario['id'] == $tarea['id_usuario']){
+                            if($usuario['id'] == $usuarioCreadorId){
                                 $usuarioCreador = $usuario;
                             }
-                            if($usuario['id'] == $tareaAsignadaUsuario['id_usuario_asignado'] && $usuario['id'] != $tarea['id_usuario']){
+                            if($usuario['id'] == $tareaAsignadaUsuario['id_usuario_asignado'] && $usuario['id'] != $usuarioCreadorId){
                                 $usuariosAsignados[] = $usuario;
                             }
                         }
@@ -301,7 +387,7 @@ class TareaController extends Controller
                     return $usuario['id'];
                 }, $usuariosAsignados);
 
-                if($usuarioLogueado['id'] != $usuarioCreador['id'] && !in_array($usuarioLogueado['id'], $idsUsuariosAsignados)){
+                if($usuarioLogueado['id'] != $usuarioCreadorId && !in_array($usuarioLogueado['id'], $idsUsuariosAsignados)){
                     return redirect()->route('tareas.error')->withErrors([
                         'message' => "No tiene permisos para modificar esta tarea."
                     ]);
@@ -310,7 +396,6 @@ class TareaController extends Controller
 
             return view('tareas.modificar', [
                 'id' => $id,
-                'usuario' => $usuario,
                 'tarea' => $tarea,
                 'usuarios' => $usuarios,
                 'usuarioLogueado' => $usuarioLogueado,
@@ -347,6 +432,7 @@ class TareaController extends Controller
         ]);
 
         $idsUsuarios = $request->input('idsUsuarios');
+        $idUsuarioCreador = $request->input('idUsuarioCreador');
 
         $fechaHoraInicio = DateTime::createFromFormat('Y-m-d\TH:i', $tarea['fecha_hora_inicio']);
         $tarea['fecha_hora_inicio'] = $fechaHoraInicio->format('Y-m-d H:i:s');
@@ -373,23 +459,27 @@ class TareaController extends Controller
         if($response->getStatusCode() == 200){
             if ($idsUsuarios === null) {
                 return redirect()->route('tareas.modificar', ['id' => $tarea['id']])->withErrors([
-                    'message' => "No se pudo asignar la tarea a los usuarios seleccionados."
+                        'message' => "No se pudo asignar la tarea a los usuarios seleccionados."
                 ]);
             }
 
             foreach($usuariosAsignados as $usuarioAsignado){
                 if(!in_array($usuarioAsignado, $idsUsuarios)){
-                    $response = Http::withHeaders([
-                        "Accept" => "application/json",
-                        "Authorization" => "Bearer $token"
-                    ])->delete(getenv("GTAPI_ASIGNA")."/".$usuarioLogueado['id']."/".$usuarioAsignado."/".$tarea['id']);
+                    if($usuarioAsignado != $idUsuarioCreador){
+                        $response = Http::withHeaders([
+                            "Accept" => "application/json",
+                            "Authorization" => "Bearer $token"
+                        ])->delete(getenv("GTAPI_ASIGNA")."/".$idUsuarioCreador."/".$usuarioAsignado."/".$tarea['id']);
+                    }
                 }
             }
+
+            $usuarioAsignadoCorrectamente = false;
 
             foreach($idsUsuarios as $idUsuario){
                 if(!in_array($idUsuario, $usuariosAsignados)){
                     $datosAsigna = [
-                        'id_usuario_creador' => $usuarioLogueado['id'],
+                        'id_usuario_creador' => $idUsuarioCreador,
                         'id_usuario_asignado' => $idUsuario,
                         'id_tarea' => $tarea['id'],
                     ];
@@ -398,7 +488,17 @@ class TareaController extends Controller
                         "Accept" => "application/json",
                         "Authorization" => "Bearer $token"
                     ])->post(getenv("GTAPI_ASIGNA"), $datosAsigna);
+
+                    if($response->getStatusCode() == 200){
+                        $usuarioAsignadoCorrectamente = true;
+                    }
                 }
+            }
+
+            if($usuarioAsignadoCorrectamente){
+                return redirect()->route('tareas.modificar', ['id' => $tarea['id']])->withErrors([
+                    'message' => 'La tarea fue modificada correctamente'
+                ]);
             }
 
             return redirect()->route('tareas.modificar', ['id' => $tarea['id']])->withErrors([

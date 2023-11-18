@@ -1,144 +1,99 @@
-.contenedor-buscar {
-    height: auto;
-    overflow-y: auto;
-    margin-bottom: 6rem;
-}
-
-.paginas-subtitulo{
-    margin-top: 6rem;
-    margin-bottom: 5rem;
-}
-
-.formulario-buscar{
-    margin-bottom: 1rem;
-}
-
-.formulario-buscar-titulo{
-    font-size: 1.8rem;
-    color: wheat;
-    text-align: center;
-    text-shadow: .1rem .1rem .1rem black;
-    margin-left: 4rem;
-}
-
-.tabla-buscar{
+.tabla-historial{
     width: 96%;
     margin-left: 2%;
-    margin-bottom: 1rem;
     border-collapse: collapse;
     border-spacing: 0;
-    border: .2rem solid #000000;
+    border: .3rem solid rgb(255, 255, 255);
 }
 
-.tabla-buscar th{
-    font-size: 85%;
+.tabla-historial-titulos{
+    height: 4rem;
+}
+
+.tabla-historial-titulos th{
+    padding: 0.5rem;
+    font-size: 70%;
+    font-weight: bold;
     text-align: center;
-    border-bottom: .2rem solid #000000;
+    color: white;
+    background-color: rgb(49, 120, 201);
+    white-space: normal;
+    word-wrap: break-word;
 }
 
-.tabla-buscar td{
-    border-bottom: .1rem solid #b4b0b0;
+.columna-historial-id{
+    width: 2%;
 }
 
-.columna-id {
-    width: 4%;
+.columna-historial-evento{
+    width: 3%;
 }
 
-.columna-titulo {
-    width: 20%;
+.columna-historial-tarea{
+    width: 2%;
 }
 
-.columna-fecha-cracion,
-.columna-fecha-inicio,
-.columna-fecha-fin{
-    width: 8%;
+.columna-historial-tipo{
+    width: 2%;
 }
 
-.columna-categoria,
-.columna-estado{
+.columna-historial-titulo{
     width: 7%;
 }
 
-.columna-usuario{
-    width: 16%;
+.columna-historial-texto{
+    width: 15%;
 }
 
-.columna-opciones{
-    width: 8%;
+.columna-historial-fecha-inicio{
+    width: 3.5%;
 }
 
-.fila-id,
-.fila-titulo,
-.fila-fecha-creacion,
-.fila-fecha-inicio,
-.fila-fecha-fin,
-.fila-categoria,
-.fila-estado,
-.fila-usuario,
-.fila-opciones{
+.columna-historial-fecha-fin{
+    width: 3.5%;
+}
+
+.columna-historial-categoria{
+    width: 3.5%;
+}
+
+.columna-historial-estado{
+    width: 3%;
+}
+
+.columna-historial-usuario{
+    width: 5%;
+}
+
+.columna-historial-fecha-modificacion{
+    width: 3.5%;
+}
+
+.columna-historial-editor{
+    width: 5%;
+}
+
+.columna-historial-opciones{
+    width: 3%;
+}
+
+.tabla-historial-body tr:nth-child(4n-1), .tabla-historial-body tr:nth-child(4n) {
+    background-color: rgb(211, 211, 206);
+}
+
+.tabla-historial-body td:hover {
+    color: red;
+}
+
+.tabla-historial-body{
     text-align: center;
-    font-size: 75%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 65%;
+    white-space: normal;
+    word-wrap: break-word;
 }
 
-.fila-id{
-    background-color: rgb(230, 230, 243);
-    font-weight: bold;
-}
-
-.paginacion{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: -moz-fit-content;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2rem;
-    color: wheat;
-    font-size: 1.8rem;
-    text-shadow : .1rem .1rem .1rem black;
-}
-
-.paginacion span,
-.paginacion button{
-    margin-left: .3rem;
-    margin-right: .3rem;
-}
-
-
-@media only screen and (max-width: 1366px) {
-    .tabla-buscar {
-        overflow-x: auto;
-        display: block;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .tabla-buscar {
-        overflow-x: auto;
-        display: block;
-    }
-
-    .tabla-buscar th{
-        font-size: 80%;
-    }
-
-    .tabla-buscar tr{
-        font-size: 70%;
-    }
-
-    .columna-fecha-cracion,
-    .columna-fecha-inicio,
-    .columna-fecha-fin{
-        display: none;
-    }
-
-    .fila-fecha-creacion,
-    .fila-fecha-inicio,
-    .fila-fecha-fin{
-        display: none;
-    }
+.celda-historial-fecha-modificacion{
+    font-size: auto;
+    text-overflow: none;
+    white-space: none;
 }

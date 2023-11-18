@@ -85,18 +85,16 @@ document.getElementById('buscadorUsuarios').addEventListener('input', function(e
     resultadosBusqueda.innerHTML = '';
 
     todosUsuarios.forEach(function(usuario) {
-        if (usuario.textContent.toLowerCase().includes(consulta) && usuario.textContent !== usuarioCreador) {
-            var filas = document.querySelectorAll('.usuarios-seleccionados-tabla tbody tr');
-            var usuarioYaEnTabla = Array.from(filas).some(function(fila) {
-                return fila.dataset.id === usuario.dataset.id;
-            });
+        var filas = document.querySelectorAll('.usuarios-seleccionados-tabla tbody tr');
+        var usuarioYaEnTabla = Array.from(filas).some(function(fila) {
+            return fila.dataset.id === usuario.dataset.id;
+        });
 
-            if (!usuarioYaEnTabla) {
-                var option = document.createElement('option');
-                option.value = usuario.dataset.id;
-                option.textContent = usuario.textContent;
-                resultadosBusqueda.appendChild(option);
-            }
+        if (usuario.textContent.toLowerCase().includes(consulta) && !usuarioYaEnTabla) {
+            var option = document.createElement('option');
+            option.value = usuario.dataset.id;
+            option.textContent = usuario.textContent;
+            resultadosBusqueda.appendChild(option);
         }
     });
 });
@@ -213,7 +211,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     var resultadosBusqueda = document.getElementById('resultadosBusqueda');
 
     todosUsuarios.forEach(function(usuario) {
-        if (usuario.textContent !== usuarioCreador) {
+        var filas = document.querySelectorAll('.usuarios-seleccionados-tabla tbody tr');
+        var usuarioYaEnTabla = Array.from(filas).some(function(fila) {
+            return fila.dataset.id === usuario.dataset.id;
+        });
+
+        if (usuario.textContent !== usuarioCreador && !usuarioYaEnTabla) {
             var option = document.createElement('option');
             option.value = usuario.dataset.id;
             option.textContent = usuario.textContent;

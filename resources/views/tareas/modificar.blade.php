@@ -92,6 +92,7 @@
                     </div>
                 </div>
                 <input type="hidden" id="idsUsuarios" name="idsUsuarios">
+                <input type="hidden" id="idUsuarioCreador" name="idUsuarioCreador" value="{{ $usuarioCreador['id'] }}" >
             </div>
         </form>
     </div> <!-- Fin Clase Formulario Modificar -->

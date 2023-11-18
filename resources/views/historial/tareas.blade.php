@@ -4,65 +4,82 @@
 
     <div class="contenedor-buscar">
         <div class="paginas-subtitulo">
-            <h1>Historial de las Tareas</h1>
+            <h2>Historial de las Tareas</h2>
         </div>
 
         <div class="formulario-buscar-contenedor">
-            <form id="paginationFormHistorialTareas" class="formulario-buscar" method="GET">
-                <label class="formulario-buscar-titulo" for="estado">Cantidad de filas a mostrar:</label>
-                <select id="rowsPerPageHistorialTareas" name="filasPorPaginaHistorialTareas">
-                    <option value="16" @if ($filasPorPaginaHistorialTareas == 16) selected @endif>16</option>
-                    <option value="32" @if ($filasPorPaginaHistorialTareas == 32) selected @endif>32</option>
-                    <option value="64" @if ($filasPorPaginaHistorialTareas == 64) selected @endif>64</option>
-                    <option value="96" @if ($filasPorPaginaHistorialTareas == 96) selected @endif>96</option>
-                </select>
+            <form id="paginationFormHistorialTareas" method="GET">
+                <div class="formulario-buscar-paginado">
+                    <label class="formulario-buscar-titulo" for="estado">Cantidad de filas a mostrar:</label>
+                    <select id="rowsPerPageHistorialTareas" name="filasPorPaginaHistorialTareas">
+                        <option value="8" @if ($filasPorPaginaHistorialTareas == 16) selected @endif>8</option>
+                        <option value="16" @if ($filasPorPaginaHistorialTareas == 16) selected @endif>16</option>
+                        <option value="32" @if ($filasPorPaginaHistorialTareas == 32) selected @endif>32</option>
+                        <option value="64" @if ($filasPorPaginaHistorialTareas == 64) selected @endif>64</option>
+                        <option value="96" @if ($filasPorPaginaHistorialTareas == 96) selected @endif>96</option>
+                    </select>
+                </div>
+                <div class="formulario-buscar-orden">
+                    <label class="formulario-buscar-titulo" for="orden">Ordenar por ID:</label>
+                    <select id="ordenHistorial" name="ordenHistorial">
+                        <option value="asc" @if ($ordenHistorial == 'asc') selected @endif>Ascendente</option>
+                        <option value="desc" @if ($ordenHistorial == 'desc') selected @endif>Descendente</option>
+                    </select>
+                </div>
             </form>
         </div>
 
-        <table class="tabla-buscar">
-            <thead>
+        <table class="tabla-historial">
+            <thead class="tabla-historial-titulos">
                 <tr>
-                    <th class="columna-id">ID</th>
-                    <th class="columna-evento">Evento</th>
-                    <th class="columna-tarea">Tarea</th>
-                    <th class="columna-titulo">Título</th>
-                    <th class="columna-texto">Texto</th>
-                    <th class="columna-fecha-cracion">Fecha Creación</th>
-                    <th class="columna-fecha-inicio">Fecha Inicio</th>
-                    <th class="columna-fecha-fin">Fecha Fin</th>
-                    <th class="columna-categoria">Categoría</th>
-                    <th class="columna-estado">Estado</th>
-                    <th class="columna-usuario">Usuario</th>
-                    <th class="columna-opciones">Opciones</th>
+                    <th class="columna-historial-id">Id</th>
+                    <th class="columna-historial-evento">Evento</th>
+                    <th class="columna-historial-tarea">Tarea</th>
+                    <th class="columna-historial-tipo">Tipo</th>
+                    <th class="columna-historial-titulo">Título</th>
+                    <th class="columna-historial-texto">Texto</th>
+                    <th class="columna-historial-fecha-inicio">Fecha Inicio</th>
+                    <th class="columna-historial-fecha-fin">Fecha Fin</th>
+                    <th class="columna-historial-categoria">Categoría</th>
+                    <th class="columna-historial-estado">Estado</th>
+                    <th class="columna-historial-usuario">Autor</th>
+                    <th class="columna-historial-fecha-modificacion">Registro</th>
+                    <th class="columna-historial-editor">Editor</th>
+                    <th class="columna-historial-opciones">Opciones</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($tareas as $tarea)
+            <tbody class="tabla-historial-body">
+                @foreach ($historiales as $tarea)
                     <tr>
-                        <td class="fila-id" rowspan="2">{{ $tarea['id'] }}</td>
-                        <td class="fila-evento" rowspan="2">{{ $tarea['evento'] }}</td>
-                        <td class="fila-tarea" rowspan="2">{{ $tarea['id_tarea'] }}</td>
-                        <td class="fila-titulo">{{ $tarea['old_titulo'] }}</td>
-                        <td class="fila-texto">{{ $tarea['old_texto'] }}</td>
-                        <td class="fila-fecha-creacion">{{ empty($tarea['old_fecha_hora_creacion']) ? '' : (new DateTime($tarea['old_fecha_hora_creacion']))->format('Y-m-d') }}</td>
-                        <td class="fila-fecha-inicio">{{ empty($tarea['old_fecha_hora_inicio']) ? '' : (new DateTime($tarea['old_fecha_hora_inicio']))->format('Y-m-d') }}</td>
-                        <td class="fila-fecha-fin">{{ empty($tarea['old_fecha_hora_fin']) ? '' : (new DateTime($tarea['old_fecha_hora_fin']))->format('Y-m-d') }}</td>
-                        <td class="fila-categoria">{{ $tarea['old_categoria'] }}</td>
-                        <td class="fila-estado">{{ $tarea['old_estado'] }}</td>
-                        <td class="fila-usuario">{{ $tarea['old_nombre'] }} {{ $tarea['old_apellido'] }}</td>
-                        <td class="fila-opciones" rowspan="2">
-                            <a href="{{ route('tareas.ver', ['id' => $tarea['id']]) }}">Ver</a>
+                        <td class="celda-historial-id" rowspan="2">{{ $tarea['id'] }}</td>
+                        <td class="celda-historial-evento" rowspan="2">{{ $tarea['evento'] }}</td>
+                        <td class="celda-historial-tarea" rowspan="2">{{ $tarea['id_tarea'] }}</td>
+                        <td class="celda-historial-tipo">Old</td>
+                        <td class="celda-historial-titulo">{{ $tarea['old_titulo'] }}</td>
+                        <td class="celda-historial-texto">{{ $tarea['old_texto'] }}</td>
+                        <td class="celda-historial-fecha-inicio">{{ empty($tarea['old_fecha_hora_inicio']) ? '' : (new DateTime($tarea['old_fecha_hora_inicio']))->format('Y-m-d') }}</td>
+                        <td class="celda-historial-fecha-fin">{{ empty($tarea['old_fecha_hora_fin']) ? '' : (new DateTime($tarea['old_fecha_hora_fin']))->format('Y-m-d') }}</td>
+                        <td class="celda-historial-categoria">{{ $tarea['old_categoria'] }}</td>
+                        <td class="celda-historial-estado">{{ $tarea['old_estado'] }}</td>
+                        <td class="celda-historial-usuario">{{ $tarea['old_nombre'] }} {{ $tarea['old_apellido'] }}</td>
+                        <td class="celda-historial-fecha-modificacion" rowspan="2">{{ date('Y-m-d H:i', strtotime($tarea['fecha_hora_modificacion'])) }}</td>
+                        <td class="celda-historial-editor" rowspan="2">{{ $tarea['editor_nombre'] }} {{ $tarea['editor_apellido'] }}</td>
+                        <td class="celda-historial-opciones" rowspan="2">
+                            @if(array_key_exists('tarea_asignada', $tarea) && $tarea['tarea_asignada'] == 1)
+                                <a href="{{ route('tareas.ver', ['id' => $tarea['id_tarea']]) }}">Ver</a>
+                                <a href="{{ route('tareas.modificar', ['id' => $tarea['id_tarea']]) }}">Modificar</a>
+                            @endif
                         </td>
                     </tr>
                     <tr>
-                        <td class="fila-titulo">{{ $tarea['new_titulo'] }}</td>
-                        <td class="fila-titulo">{{ $tarea['new_texto'] }}</td>
-                        <td class="fila-fecha-creacion">{{ empty($tarea['new_fecha_hora_creacion']) ? '' : (new DateTime($tarea['new_fecha_hora_creacion']))->format('Y-m-d') }}</td>
-                        <td class="fila-fecha-inicio">{{ empty($tarea['new_fecha_hora_inicio']) ? '' : (new DateTime($tarea['new_fecha_hora_inicio']))->format('Y-m-d') }}</td>
-                        <td class="fila-fecha-fin">{{ empty($tarea['new_fecha_hora_fin']) ? '' : (new DateTime($tarea['new_fecha_hora_fin']))->format('Y-m-d') }}</td>
-                        <td class="fila-categoria">{{ $tarea['new_categoria'] }}</td>
-                        <td class="fila-estado">{{ $tarea['new_estado'] }}</td>
-                        <td class="fila-usuario">{{ $tarea['new_nombre'] }} {{ $tarea['new_apellido'] }}</td>
+                        <td class="celda-historial-tipo">New</td>
+                        <td class="celda-historial-titulo">{{ $tarea['new_titulo'] }}</td>
+                        <td class="celda-historial-texto">{{ $tarea['new_texto'] }}</td>
+                        <td class="celda-historial-fecha-inicio">{{ empty($tarea['new_fecha_hora_inicio']) ? '' : (new DateTime($tarea['new_fecha_hora_inicio']))->format('Y-m-d') }}</td>
+                        <td class="celda-historial-fecha-fin">{{ empty($tarea['new_fecha_hora_fin']) ? '' : (new DateTime($tarea['new_fecha_hora_fin']))->format('Y-m-d') }}</td>
+                        <td class="celda-historial-categoria">{{ $tarea['new_categoria'] }}</td>
+                        <td class="celda-historial-estado">{{ $tarea['new_estado'] }}</td>
+                        <td class="celda-historial-usuario">{{ $tarea['new_nombre'] }} {{ $tarea['new_apellido'] }}</td>
                     </tr>
                 @endforeach
             </tbody>

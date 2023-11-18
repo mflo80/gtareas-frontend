@@ -7,7 +7,10 @@ $(document).ready(function() {
     }).change();
 
     document.getElementById('rowsPerPage').addEventListener('change', function() {
-        // Usa las variables globales
         window.location.href = window.routes.buscar + '?filasPorPagina=' + this.value + '&pagina=1';
+    });
+
+    document.getElementById('ordenTareas').addEventListener('change', function() {
+        window.location.href = window.routes.buscar + '?ordenTareas=' + this.value;
     });
 });

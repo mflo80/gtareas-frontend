@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\HistorialController;
 
 
 Route::view('/', "index")->name('index');
@@ -14,8 +15,6 @@ Route::view('/', "index")->name('index');
 Route::controller(InicioController::class)->middleware('autenticacion')->group(function () {
     Route::get('ayuda', 'ayuda')->name('tareas.ayuda');
     Route::get('buscar', 'buscar')->name('tareas.buscar');
-    Route::get('historial-comentarios', 'historial_comentarios')->name('historial.comentarios');
-    Route::get('historial-tareas', 'historial_tareas')->name('historial.tareas');
 });
 
 Route::controller(TareaController::class)->middleware('autenticacion')->group(function () {
@@ -28,6 +27,11 @@ Route::controller(TareaController::class)->middleware('autenticacion')->group(fu
     Route::put('modificar-tarea-{id}', 'modificar');
     Route::put('categoria-tarea-{id}', 'actualizar_categoria');
     Route::delete('eliminar-tarea-{id}', 'eliminar');
+});
+
+Route::controller(HistorialController::class)->middleware('autenticacion')->group(function () {
+    Route::get('historial-comentarios', 'historial_comentarios')->name('historial.comentarios');
+    Route::get('historial-tareas', 'historial_tareas')->name('historial.tareas');
 });
 
 Route::controller(LoginController::class)->group(function () {

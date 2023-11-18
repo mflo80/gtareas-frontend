@@ -11,11 +11,12 @@
     <link href="{{ asset('/css/tareas/modificar.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/tareas/ver.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/tareas/buscar.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/historial/tareas.css') }}" rel="stylesheet">
     <script src="{{ asset('js/externos/jQuery.js') }}"></script>
     <script src="{{ asset('js/externos/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/tareas/inicio.js') }}"></script>
     <script src="{{ asset('js/tareas/buscar.js') }}"></script>
-    <script src="{{ asset('js/tareas/historialTareas.js') }}"></script>
+    <script src="{{ asset('js/historial/historialTareas.js') }}"></script>
     <title>Gestor de Tareas</title>
 </head>
 
