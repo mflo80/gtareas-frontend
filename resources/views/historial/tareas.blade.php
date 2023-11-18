@@ -65,7 +65,7 @@
                         <td class="celda-historial-fecha-modificacion" rowspan="2">{{ date('Y-m-d H:i', strtotime($tarea['fecha_hora_modificacion'])) }}</td>
                         <td class="celda-historial-editor" rowspan="2">{{ $tarea['editor_nombre'] }} {{ $tarea['editor_apellido'] }}</td>
                         <td class="celda-historial-opciones" rowspan="2">
-                            @if(array_key_exists('tarea_asignada', $tarea) && $tarea['tarea_asignada'] == 1)
+                            @if((array_key_exists('tarea_asignada', $tarea) && $tarea['tarea_asignada'] == 1) && $tarea['evento'] != 'Eliminada')
                                 <a href="{{ route('tareas.ver', ['id' => $tarea['id_tarea']]) }}">Ver</a>
                                 <a href="{{ route('tareas.modificar', ['id' => $tarea['id_tarea']]) }}">Modificar</a>
                             @endif

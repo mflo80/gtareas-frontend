@@ -122,8 +122,10 @@ document.getElementById('agregarUsuario').addEventListener('click', function() {
         var celdaEliminar = document.createElement('td');
         var botonEliminar = document.createElement('button');
         botonEliminar.textContent = 'Eliminar';
+        botonEliminar.className = 'btn-eliminar-usuario';
         celdaEliminar.className = 'celdaEliminar';
         botonEliminar.addEventListener('click', function() {
+            evento.preventDefault();
             fila.remove();
 
             var option = document.createElement('option');
@@ -177,7 +179,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
         var celdaEliminar = document.createElement('td');
         var botonEliminar = document.createElement('button');
+        botonEliminar.className = 'btn-eliminar-usuario';
         botonEliminar.textContent = 'Eliminar';
+        botonEliminar.disabled = true;
         celdaEliminar.appendChild(botonEliminar);
         fila.appendChild(celdaEliminar);
 
@@ -200,6 +204,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     var celdaEliminar = document.createElement('td');
     var botonEliminar = document.createElement('button');
     botonEliminar.textContent = 'Eliminar';
+    botonEliminar.className = 'btn-eliminar-usuario';
     celdaEliminar.className = 'celdaEliminar';
     botonEliminar.disabled = true;
     celdaEliminar.appendChild(botonEliminar);
@@ -225,24 +230,27 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
-botonEliminar.addEventListener('click', function(evento) {
-    evento.stopPropagation();
-    evento.preventDefault();
+// Añade manejadores de eventos a los botones de eliminar existentes
+document.querySelectorAll('.btn-eliminar-usuario').forEach(function(botonEliminar) {
+    botonEliminar.addEventListener('click', function(evento) {
+        evento.stopPropagation();
+        evento.preventDefault();
 
-    fila.remove();
+        fila.remove();
 
-    var option = document.createElement('option');
-    option.value = fila.dataset.id;
-    option.textContent = usuarioSeleccionado;
+        var option = document.createElement('option');
+        option.value = fila.dataset.id;
+        option.textContent = usuarioSeleccionado;
 
-    var opciones = Array.from(resultadosBusqueda.options);
-    opciones.push(option);
-    opciones.sort(function(a, b) {
-        return a.textContent.localeCompare(b.textContent);
-    });
+        var opciones = Array.from(resultadosBusqueda.options);
+        opciones.push(option);
+        opciones.sort(function(a, b) {
+            return a.textContent.localeCompare(b.textContent);
+        });
 
-    resultadosBusqueda.innerHTML = '';
-    opciones.forEach(function(opcion) {
-        resultadosBusqueda.appendChild(opcion);
+        resultadosBusqueda.innerHTML = '';
+        opciones.forEach(function(opcion) {
+            resultadosBusqueda.appendChild(opcion);
+        });
     });
 });
