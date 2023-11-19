@@ -51,7 +51,7 @@ campoFechaHoraFin.addEventListener('input', () => {
 // Limitar la longitud del campo de título
 
 const titulo = document.getElementById('titulo');
-const maxLengthTitulo = 30;
+const maxLengthTitulo = 56;
 
 titulo.addEventListener('input', () => {
     const text = titulo.value;
@@ -63,7 +63,7 @@ titulo.addEventListener('input', () => {
 // Textarea límite de texto
 
 const textarea = document.querySelector('textarea');
-const maxLengthTextArea = 150;
+const maxLengthTextArea = 200;
 
 textarea.addEventListener('input', () => {
     const text = textarea.value;

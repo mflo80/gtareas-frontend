@@ -147,8 +147,9 @@
                 </div>
                 <div class="tarea-botones">
                     <button type="button" class="btn-rojo"
-                        onclick="document.getElementById('contenedorComentario').style.display='none'">Cancelar</button>
-                    <button type="submit" class="btn-azul">Enviar</button>
+                        onclick="document.getElementById('contenedorComentario').style.display='none';
+                        document.getElementById('comentario').value='';">Cancelar</button>
+                    <button type="submit" id="btn-enviar" class="btn-azul">Enviar</button>
                 </div>
             </form>
         </div>

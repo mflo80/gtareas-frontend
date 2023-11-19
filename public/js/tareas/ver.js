@@ -12,6 +12,19 @@ document.getElementById('comentario').addEventListener('input', function() {
     }
 });
 
+// Si textarea está vacia se deshabilita el botón de enviar
+window.onload = function() {
+    document.getElementById('btn-enviar').disabled = true;
+}
+
+document.getElementById('comentario').addEventListener('input', function() {
+    if (this.value.trim() === '') {
+        document.getElementById('btn-enviar').disabled = true;
+    } else {
+        document.getElementById('btn-enviar').disabled = false;
+    }
+});
+
 // Buscar usuarios
 
 var usuariosAgregados = [];
