@@ -126,3 +126,29 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
+// Comentarios
+
+function activarTextarea(index) {
+    document.getElementById('comentario' + index).style.display = 'block';
+    document.getElementById('comentario' + index).style.textAlign = 'left';
+    document.getElementById('comentario' + index).disabled = false;
+    document.getElementById('parrafoComentario' + index).style.display = 'none';
+    document.getElementById('eliminar' + index).style.display = 'block';
+    document.getElementById('modificar' + index).style.display = 'none';
+    document.getElementById('cancelar' + index).style.display = 'block';
+    document.getElementById('enviar' + index).style.display = 'block';
+
+    form.onsubmit = function(e) {
+        e.preventDefault();
+    };
+}
+
+function cancelarModificacion(index) {
+    document.getElementById('comentario' + index).style.display = 'none';
+    document.getElementById('parrafoComentario' + index).style.display = 'block';
+    document.getElementById('eliminar' + index).style.display = 'none';
+    document.getElementById('modificar' + index).style.display = 'block';
+    document.getElementById('enviar' + index).style.display = 'none';
+    document.getElementById('cancelar' + index).style.display = 'none';
+    document.getElementById('formComentario' + index).reset();
+}

@@ -106,35 +106,41 @@
         <span>
             <a class="comentario-titulo">Comentarios</a>
         </span>
-        <div class="tablaComentarios">
-            @foreach($tareaComentarios as $tareaComentario)
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="tarea-titulo">{{ $tareaComentario['comentario'] }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="tarea-inicia">
-                                <a>Fecha comentario:</a>
-                                <span>{{ $tareaComentario['fecha_hora_creacion'] }}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tarea-datos">
-                                <span class="tarea-id">
-                                    <img class="icono-usuario" src="{{ asset('/img/usuario-96.png') }}" alt="Ícono de Usuario" />
-                                    <span>{{ $tareaComentario['nombre_usuario'] }} {{ $tareaComentario['apellido_usuario'] }}</span>
-                                </span>
-                                <span class="tarea-botones">
-                                    <button class="btn-rojo" data-url="{{ route('tareas.ver', $tarea['id']) }}" disabled>Eliminar</button>
-                                    <button class="btn-gris" data-url="{{ route('tareas.ver', $tarea['id']) }}" disabled>Modificar</button>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="listaComentarios">
+            @foreach($tareaComentarios as $index => $tareaComentario)
+                <form id="formComentario{{ $index }}" class="formComentario" method="POST" action="{{ route('comentarios.modificar') }}">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" id="id{{ $index }}" name="id" value="{{ $tareaComentario['id'] }}">
+                    <input type="hidden" id="id_usuario{{ $index }}" name="id_usuario" value="{{ $usuarioLogueado['id'] }}">
+                    <input type="hidden" id="id_tarea{{ $index }}" name="id_tarea" value="{{ $tarea['id'] }}">
+                    <input type="hidden" id="fecha_hora_creacion{{ $index }}" name="fecha_hora_creacion" value="{{ $tareaComentario['fecha_hora_creacion'] }}">
+                    <div class="listaComentario">
+                        <p id="parrafoComentario{{ $index }}" class="parrafoComentario">{{ $tareaComentario['comentario'] }}</p>
+                        <textarea id="comentario{{ $index }}" name="comentario" placeholder="Escribe tu comentario aquí" disabled
+                            value="{{ old($tareaComentario['comentario']) }}" style="display: none;">{{ $tareaComentario['comentario'] }}</textarea>
+                    </div>
+                    <div class="fechaComentario">
+                        <span>Fecha de creación: {{ $tareaComentario['fecha_hora_creacion'] }}</span>
+                        <span>Última modificación: {{ $tareaComentario['fecha_hora_modificacion'] }}</span>
+                    </div>
+                    <div class="footerComentario">
+                        <span class="tarea-id">
+                            <img class="icono-usuario" src="{{ asset('/img/usuario-96.png') }}" alt="Ícono de Usuario" />
+                            <span>{{ $tareaComentario['nombre_usuario'] }} {{ $tareaComentario['apellido_usuario'] }}</span>
+                        </span>
+                        <span class="tarea-botones">
+                            <form method="POST" action="{{ route('comentarios.eliminar', $tareaComentario['id']) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn-rojo" id="eliminar{{ $index }}" style="display: none;">Eliminar</button>
+                            </form>
+                            <button type="button" class="btn-gris" id="cancelar{{ $index }}" onclick="cancelarModificacion({{ $index }});" style="display: none;">Cancelar</button>
+                            <button type="button" class="btn-gris" id="modificar{{ $index }}" onclick="activarTextarea({{ $index }}), document.getElementById('formComentario{{ $index }}');">Modificar</button>
+                            <button type="submit" class="btn-azul" id="enviar{{ $index }}" style="display: none;">Enviar</button>
+                        </span>
+                    </div>
+                </form>
             @endforeach
         </div>
         <div class="contenedorComentario" id="contenedorComentario">
@@ -159,7 +165,7 @@
                     <tr>
                         <td>
                             <span class="botonComentar">
-                                <button type="button" class="btn-verde"
+                                <button type="button" class="btn-morado"
                                     onclick="document.getElementById('contenedorComentario').style.display='flex'">Comentar</button>
                             </span>
                         </td>

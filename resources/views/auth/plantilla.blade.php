@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,8 +23,5 @@
             <p>Gestor de Tareas v1.00 ® by Marcelo Florio (2023)</p>
         </div>
     </footer>
-
-
 </body>
-
 </html>

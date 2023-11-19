@@ -68,21 +68,6 @@
     margin-bottom: .5rem;
 }
 
-.comentario-ver table{
-    width: 98%;
-    height: auto;
-    margin-left: 1%;
-    margin-right: 1%;
-    margin-bottom: .5rem;
-    border-spacing: 0;
-    border: .2rem solid #333;
-    background-color: #f2f2f2;
-}
-
-.botones-comentarios{
-    background-color: rgb(1, 51, 92);
-}
-
 input:disabled{
 	background: rgba(0,0,0,0.3);
     color: #fff;
@@ -96,6 +81,80 @@ textarea:disabled {
 select:disabled {
     color: black;
 }
+
+/* Lista de comentarios */
+
+.listaComentarios{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+    padding: .5rem;
+}
+
+.listaComentario{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+    padding: .5rem;
+}
+
+.listaComentario p{
+    width: 100%;
+    height: auto;
+    margin-top: .1rem;
+    margin-bottom: .1rem;
+    padding: .5rem;
+    background-color: rgb(238, 234, 234);
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.listaComentario textarea{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    padding: .5rem;
+    background-color: rgb(238, 234, 234);
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.fechaComentario{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: auto;
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+    padding: .5rem;
+}
+
+.footerComentario{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: auto;
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+    border: 0.1rem solid rgb(221, 217, 217);
+    padding: .5rem;
+}
+
+
+/* Formulario crear comentario */
 
 .contenedorComentario{
     display: none;

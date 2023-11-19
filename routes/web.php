@@ -3,13 +3,12 @@
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\TareaController;
 use App\Http\Controllers\InicioController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\HistorialController;
-use App\Http\Controllers\Controller;
-
+use App\Http\Controllers\ComentarioController;
+use Illuminate\Support\Facades\Route;
 
 Route::view('/', "index")->name('index');
 
@@ -58,8 +57,10 @@ Route::controller(ErrorController::class)->middleware('autenticacion')->group(fu
     Route::get('error-404', 'index')->name('tareas.error');
 });
 
-Route::controller(Controller::class)->middleware('autenticacion')->group(function () {
+Route::controller(ComentarioController::class)->middleware('autenticacion')->group(function () {
     Route::post('comentarios', 'crear_comentario')->name('comentarios.crear');
+    Route::put('comentarios', 'modificar_comentario')->name('comentarios.modificar');
+    Route::delete('comentarios', 'eliminar_comentario')->name('comentarios.eliminar');
 });
 
 Route::fallback(function () {

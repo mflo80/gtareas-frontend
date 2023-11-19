@@ -111,7 +111,6 @@ class Controller extends BaseController
         }
     }
 
-
     public function getTareaAsignadaUsuario($id_usuario)
     {
         $token = $this->getActiveUserToken();
@@ -150,28 +149,5 @@ class Controller extends BaseController
         }
 
         return $tareaComentarios;
-    }
-
-    public function crear_comentario(Request $request){
-        $token = $this->getActiveUserToken();
-
-        $datos = [
-            "id_usuario" => $request->input('id_usuario'),
-            "id_tarea" => $request->input('id_tarea'),
-            "comentario" => $request->input('comentario')
-        ];
-
-        $response = Http::withHeaders([
-            "Accept" => "application/json",
-            "Authorization" => "Bearer $token"
-        ])->post(getenv('GTAPI_COMENTARIOS'), $datos);
-
-        if ($response->successful()) {
-            return redirect()->route('tareas.ver', ['id' => $request->input('id_tarea')])->with('success', 'Comentario creado correctamente');
-        }
-
-        if ($response->getStatusCode() != 200) {
-            return redirect()->route('tareas.ver', ['id' => $request->input('id_tarea')])->with('error', 'Error al crear el comentario');
-        }
     }
 }
