@@ -35,7 +35,7 @@
                                 $categorias = explode(',', getenv('CATEGORIAS'));
                             @endphp
                             @foreach ( $categorias as $categoria) {
-                                <option value={{ $categoria }}>{{ $categoria }}</option>
+                                <option value="{{ $categoria }}">{{ $categoria }}</option>
                             }
                             @endforeach
                         </select>
@@ -48,7 +48,7 @@
                                 $estados = explode(',', getenv('ESTADOS'));
                             @endphp
                             @foreach ( $estados as $estado) {
-                                <option value={{ $estado }}>{{ $estado }}</option>
+                                <option value="{{ $estado }}">{{ $estado }}</option>
                             }
                             @endforeach
                         </select>

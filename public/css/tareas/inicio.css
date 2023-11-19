@@ -296,20 +296,33 @@ th {
     word-wrap: break-word;
 }
 
-.tarea-botones button.ver {
+.tarea-botones button.btn-azul {
     background-color: #008CBA;
 }
 
-.tarea-botones button.modificar {
+.tarea-botones button.btn-rojo {
     background-color: #f44336;
 }
 
-.tarea-botones button.comentar {
+.tarea-botones button.btn-gris {
     background-color: #555555;
+}
+
+.tarea-botones button.btn-verde {
+    background-color: rgb(46, 105, 21);
 }
 
 .tarea-botones button:hover {
     background-color: #3e8e41;
+}
+
+.tarea-botones button:active {
+    background-color: #3e8e41;
+    transform: translateY(0.2rem);
+}
+
+.tarea-botones button:disabled {
+    background-color: #cccccc;
 }
 
 .error-imagen {
@@ -373,6 +386,8 @@ th {
     border-top: .1rem solid #888;
     padding-top: 1rem;
 }
+
+
 
 @media screen and (min-width: 921px) and (max-width: 1200px) {
     .sectores {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -44,9 +45,9 @@ class Controller extends BaseController
             return $usuarios;
         }
 
-        return redirect()->route('tareas.error')->withErrors([
-            'message' => $valores['message'],
-        ]);
+        if($response->getStatusCode() != 200){
+            return $usuarios = [];
+        }
     }
 
     public function getTareas()
@@ -65,9 +66,9 @@ class Controller extends BaseController
             return $tareas;
         }
 
-        return redirect()->route('tareas.error')->withErrors([
-            'message' => $valores['message'],
-        ]);
+        if($response->getStatusCode() != 200){
+            return $tareas = [];
+        }
     }
 
     public function getTareasAsignadas(){
@@ -85,9 +86,9 @@ class Controller extends BaseController
             return $tareasAsignadas;
         }
 
-        return redirect()->route('tareas.error')->withErrors([
-            'message' => $valores['message'],
-        ]);
+        if ($response->getStatusCode() != 200) {
+            return $tareasAsignadas = [];
+        }
     }
 
     public function getTareaAsignada($id_tarea){
@@ -105,9 +106,9 @@ class Controller extends BaseController
             return $tareaAsignada;
         }
 
-        return redirect()->route('tareas.error')->withErrors([
-            'message' => $valores['message'],
-        ]);
+        if ($response->getStatusCode() != 200) {
+            return $tareaAsignada = [];
+        }
     }
 
 
@@ -127,8 +128,50 @@ class Controller extends BaseController
             return $tareasAsignadas;
         }
 
-        return redirect()->route('tareas.error')->withErrors([
-            'message' => $valores['message'],
-        ]);
+        if ($response->getStatusCode() != 200) {
+            return $tareasAsignadas = [];
+        }
+    }
+
+    public function getTareasComentarios($id_tarea){
+        $token = $this->getActiveUserToken();
+
+        $response = Http::withHeaders([
+            "Accept" => "application/json",
+            "Authorization" => "Bearer $token"
+        ])->get(getenv('GTAPI_COMENTARIOS') . "/tarea/" . $id_tarea);
+
+        $valores = $response->json();
+
+        $tareaComentarios = [];
+
+        if ($response->successful()) {
+            $tareaComentarios = $valores['comentario'];
+        }
+
+        return $tareaComentarios;
+    }
+
+    public function crear_comentario(Request $request){
+        $token = $this->getActiveUserToken();
+
+        $datos = [
+            "id_usuario" => $request->input('id_usuario'),
+            "id_tarea" => $request->input('id_tarea'),
+            "comentario" => $request->input('comentario')
+        ];
+
+        $response = Http::withHeaders([
+            "Accept" => "application/json",
+            "Authorization" => "Bearer $token"
+        ])->post(getenv('GTAPI_COMENTARIOS'), $datos);
+
+        if ($response->successful()) {
+            return redirect()->route('tareas.ver', ['id' => $request->input('id_tarea')])->with('success', 'Comentario creado correctamente');
+        }
+
+        if ($response->getStatusCode() != 200) {
+            return redirect()->route('tareas.ver', ['id' => $request->input('id_tarea')])->with('error', 'Error al crear el comentario');
+        }
     }
 }

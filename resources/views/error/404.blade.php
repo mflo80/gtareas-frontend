@@ -14,6 +14,14 @@
         <p>Lo sentimos, la página que estás buscando no se pudo encontrar.</p>
     </div>
 
+    <div class="error-404-grupo">
+        <div class="error-404-mensaje">
+            @foreach ($errors->all() as $message)
+                <p id="error">{{ $message }}</p>
+            @break
+        @endforeach
+    </div>
+
 <script>
     window.document.title = 'Gestor de Tareas - Error';
 </script>

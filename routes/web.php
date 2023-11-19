@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\HistorialController;
+use App\Http\Controllers\Controller;
 
 
 Route::view('/', "index")->name('index');
@@ -55,6 +56,10 @@ Route::controller(PasswordController::class)->middleware('guest')->group(functio
 
 Route::controller(ErrorController::class)->middleware('autenticacion')->group(function () {
     Route::get('error-404', 'index')->name('tareas.error');
+});
+
+Route::controller(Controller::class)->middleware('autenticacion')->group(function () {
+    Route::post('comentarios', 'crear_comentario')->name('comentarios.crear');
 });
 
 Route::fallback(function () {

@@ -5,10 +5,11 @@ for (var i = 0; i < inputs.length; i++) {
     inputs[i].disabled = true;
 }
 
-$(document).ready(function() {
-    $('#confirmComentarButton').on('click', function() {
-        $('#form-comentario').submit();
-    });
+// Máximo de caracteres en el textarea
+document.getElementById('comentario').addEventListener('input', function() {
+    if (this.value.length > 500) {
+        this.value = this.value.slice(0, 500);
+    }
 });
 
 // Buscar usuarios

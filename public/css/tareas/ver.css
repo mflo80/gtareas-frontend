@@ -39,6 +39,8 @@
 }
 
 .sector-comentario-2{
+    display: flex;
+    flex-direction: column;
     width: 89rem;
     margin-left: 2.1rem;
     font: 1.6rem sans-serif;
@@ -79,4 +81,74 @@
 
 .botones-comentarios{
     background-color: rgb(1, 51, 92);
+}
+
+input:disabled{
+	background: rgba(0,0,0,0.3);
+    color: #fff;
+    text-shadow: .1rem .1rem .1rem rgba(0,0,0,0.3);
+}
+
+textarea:disabled {
+    color: black;
+}
+
+select:disabled {
+    color: black;
+}
+
+.contenedorComentario{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+    background-color: rgb(230, 226, 226);
+    border: 0.2rem solid black;
+    padding: .5rem;
+}
+
+.formComentario{
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: .5rem;
+    background-color: #ccc;
+}
+
+.formComentario textarea{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    padding: .5rem;
+}
+
+.botonesComentario{
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.botonesComentario button{
+    width: 15rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    padding: .5rem;
+    background-color: #ccc;
 }

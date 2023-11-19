@@ -45,7 +45,7 @@
                                     </span>
                                     <span class="tarea-comentarios">
                                         <img class="icono-comentario" src="{{ asset('/img/comentario-100.png') }}" alt="Ícono de Comentario" />
-                                        <span>{{ rand(1, 20) }}</span>
+                                        <span>{{ $tarea['cantidad_comentarios'] }}</span>
                                     </span>
                                     <span class="tarea-usuarios">
                                         <img class="icono-usuario" src="{{ asset('/img/usuario-96.png') }}" alt="Ícono de Usuario" />
@@ -55,11 +55,11 @@
                             </tr>
                             <tr>
                                 <td class="tarea-botones">
-                                    <button id="botonVer-{{ $tarea['id'] }}" class="ver"
+                                    <button id="botonVer-{{ $tarea['id'] }}" class="btn-azul"
                                         data-url="{{ route('tareas.ver', $tarea['id']) }}">Ver</button>
-                                    <button id="botonModificar-{{ $tarea['id'] }}" class="modificar"
+                                    <button id="botonModificar-{{ $tarea['id'] }}" class="btn-rojo"
                                         data-url="{{ route('tareas.modificar', $tarea['id']) }}">Modificar</button>
-                                    <button class="comentar">Comentar</button>
+                                    <button class="btn-gris">Comentar</button>
                                 </td>
                             </tr>
                         </tbody>
