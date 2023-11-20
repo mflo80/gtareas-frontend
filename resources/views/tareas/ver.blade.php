@@ -125,18 +125,20 @@
                         <span>Última modificación: {{ $tareaComentario['fecha_hora_modificacion'] }}</span>
                     </div>
                     <div class="footerComentario">
-                        <span class="tarea-id">
+                        <span class="ver-usuario">
                             <img class="icono-usuario" src="{{ asset('/img/usuario-96.png') }}" alt="Ícono de Usuario" />
                             <span>{{ $tareaComentario['nombre_usuario'] }} {{ $tareaComentario['apellido_usuario'] }}</span>
                         </span>
-                        <span class="tarea-botones">
+                        <span class="ver-botones">
                             <form method="POST" action="{{ route('comentarios.eliminar', $tareaComentario['id']) }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-rojo" id="eliminar{{ $index }}" style="display: none;">Eliminar</button>
                             </form>
                             <button type="button" class="btn-gris" id="cancelar{{ $index }}" onclick="cancelarModificacion({{ $index }});" style="display: none;">Cancelar</button>
-                            <button type="button" class="btn-gris" id="modificar{{ $index }}" onclick="activarTextarea({{ $index }}), document.getElementById('formComentario{{ $index }}');">Modificar</button>
+                            <button type="button" class="btn-gris" id="modificar{{ $index }}" onclick="activarTextarea({{ $index }}),
+                                document.getElementById('formComentario{{ $index }}');"
+                                {{ $tareaComentario['id_usuario'] != $usuarioLogueado['id'] ? 'disabled' : '' }}>Modificar</button>
                             <button type="submit" class="btn-azul" id="enviar{{ $index }}" style="display: none;">Enviar</button>
                         </span>
                     </div>

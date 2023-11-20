@@ -237,11 +237,13 @@ class TareaController extends Controller
                 }
             }
 
-            if ($usuarioCreador == null || !is_array($usuarioCreador) || $usuariosAsignados == null || !is_array($usuariosAsignados)) {
+            if ($usuarioCreador == null || !is_array($usuarioCreador)) {
                 return redirect()->route('tareas.error')->withErrors([
-                    'message' => "Error al obtener los usuarios asignados a la tarea."
+                    'message' => "Error al obtener los usuarios creador de la tarea."
                 ]);
             }
+
+
 
             return view('tareas.ver', [
                 'id' => $id,

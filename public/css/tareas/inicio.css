@@ -273,13 +273,15 @@ th {
     transform: translateY(.2rem);
 }
 
-.tarea-botones {
+.tarea-botones,
+.ver-botones {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.tarea-botones button {
+.tarea-botones button,
+.ver-botones button {
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -297,53 +299,65 @@ th {
     word-wrap: break-word;
 }
 
-.tarea-botones button.btn-azul {
+.tarea-botones button.btn-azul,
+.ver-botones button.btn-azul {
     background-color: #008CBA;
 }
 
-.tarea-botones button.btn-rojo {
+.tarea-botones button.btn-rojo,
+.ver-botones button.btn-rojo {
     background-color: #f44336;
 }
 
-.tarea-botones button.btn-gris {
+.tarea-botones button.btn-gris,
+.ver-botones button.btn-gris {
     background-color: #555555;
 }
 
-.tarea-botones button.btn-verde {
+.tarea-botones button.btn-verde,
+.ver-botones button.btn-verde {
     background-color: rgb(46, 105, 21);
 }
 
-.tarea-botones button.btn-amarillo {
+.tarea-botones button.btn-amarillo,
+.ver-botones button.btn-amarillo {
     background-color: rgb(255, 255, 0);
 }
 
-.tarea-botones button.btn-naranja {
+.tarea-botones button.btn-naranja,
+.ver-botones button.btn-naranja {
     background-color: rgb(255, 165, 0);
 }
 
-.tarea-botones button.btn-morado {
+.tarea-botones button.btn-morado,
+.ver-botones button.btn-morado {
     background-color: rgb(128, 0, 128);
 }
 
-.tarea-botones button.btn-rosa {
+.tarea-botones button.btn-rosa,
+.ver-botones button.btn-rosa {
     background-color: rgb(255, 192, 203);
 }
 
-.tarea-botones button.btn-azul-claro {
+.tarea-botones button.btn-azul-claro,
+.ver-botones button.btn-azul-claro {
     background-color: rgb(4, 167, 221);
 }
 
-.tarea-botones button:hover {
+.tarea-botones button:hover,
+.ver-botones button:hover {
     background-color: #3e8e41;
     opacity: 0.8;
 }
 
-.tarea-botones button:active {
+.tarea-botones button:active,
+.ver-botones button:active {
     background-color: #3e8e41;
     transform: translateY(0.2rem);
 }
 
-.tarea-botones button:disabled {
+.tarea-botones button:disabled,
+.ver-botones button:disabled {
     background-color: #cccccc;
 }
 

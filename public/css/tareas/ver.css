@@ -141,16 +141,31 @@ select:disabled {
 }
 
 .footerComentario{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: min-content min-content;
+    grid-template-areas:
+        "ver-usuario ver-botones";
+    grid-gap: 1rem;
+    width: 98%;
+    height: 5.5rem;
+    margin-left: 1%;
     margin-top: .5rem;
     margin-bottom: 1rem;
     border: 0.1rem solid rgb(221, 217, 217);
     padding: .5rem;
+    background-color: #ccc;
+}
+
+.ver-usuario{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ver-usuario span{
+    margin-left: var(--margin-left-half-rem);
+    margin-top: .5rem;
 }
 
 
