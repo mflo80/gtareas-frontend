@@ -168,7 +168,7 @@
                         <td>
                             <span class="botonComentar">
                                 <button type="button" class="btn-azul-oscuro"
-                                    onclick="activarComentario({{ $index }})">Comentar</button>
+                                    onclick="activarComentario()">Comentar</button>
                             </span>
                         </td>
                     </tr>
