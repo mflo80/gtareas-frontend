@@ -118,4 +118,6 @@
     };
 </script>
 
+<script src="{{ asset('js/historial/historialTareas.js') }}"></script>
+
 @endsection

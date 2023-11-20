@@ -117,8 +117,8 @@
                     <input type="hidden" id="fecha_hora_creacion{{ $index }}" name="fecha_hora_creacion" value="{{ $tareaComentario['fecha_hora_creacion'] }}">
                     <div class="listaComentario">
                         <p id="parrafoComentario{{ $index }}" class="parrafoComentario">{{ $tareaComentario['comentario'] }}</p>
-                        <textarea id="comentario{{ $index }}" name="comentario" placeholder="Escribe tu comentario aquí" disabled
-                            value="{{ old($tareaComentario['comentario']) }}" style="display: none;">{{ $tareaComentario['comentario'] }}</textarea>
+                        <textarea id="comentario{{ $index }}" name="comentario" placeholder="Escribe tu comentario aquí"
+                            value="{{ old($tareaComentario['comentario']) }}" style="display: none;" maxlength="500">{{ $tareaComentario['comentario'] }}</textarea>
                     </div>
                     <div class="fechaComentario">
                         <span>Fecha de creación: {{ $tareaComentario['fecha_hora_creacion'] }}</span>
@@ -167,8 +167,8 @@
                     <tr>
                         <td>
                             <span class="botonComentar">
-                                <button type="button" class="btn-morado"
-                                    onclick="document.getElementById('contenedorComentario').style.display='flex'">Comentar</button>
+                                <button type="button" class="btn-azul-oscuro"
+                                    onclick="activarComentario({{ $index }})">Comentar</button>
                             </span>
                         </td>
                     </tr>

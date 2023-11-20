@@ -339,9 +339,9 @@ th {
     background-color: rgb(255, 192, 203);
 }
 
-.tarea-botones button.btn-azul-claro,
-.ver-botones button.btn-azul-claro {
-    background-color: rgb(4, 167, 221);
+.tarea-botones button.btn-azul-oscuro,
+.ver-botones button.btn-azul-oscuro {
+    background-color: rgb(0, 56, 75);
 }
 
 .tarea-botones button:hover,

@@ -1,4 +1,3 @@
-
 // Obtener el campo de fecha y hora
 
 var campoFechaHoraInicio = document.getElementById("fecha-inicio");
@@ -47,31 +46,6 @@ campoFechaHoraFin.addEventListener('input', () => {
         campoFechaHoraFin.value = campoFechaHoraInicio.value;
     }
 });
-
-// Limitar la longitud del campo de título
-
-const titulo = document.getElementById('titulo');
-const maxLengthTitulo = 56;
-
-titulo.addEventListener('input', () => {
-    const text = titulo.value;
-    if (text.length > maxLengthTitulo) {
-        titulo.value = text.slice(0, maxLengthTitulo);
-    }
-});
-
-// Textarea límite de texto
-
-const textarea = document.querySelector('textarea');
-const maxLengthTextArea = 200;
-
-textarea.addEventListener('input', () => {
-    const text = textarea.value;
-    if (text.length > maxLengthTextArea) {
-        textarea.value = text.slice(0, maxLengthTextArea);
-    }
-});
-
 
 // Modal de confirmación de eliminación y modificación
 
@@ -173,7 +147,6 @@ document.getElementById('usuariosSeleccionados').addEventListener('click', funct
     }
 });
 
-
 window.addEventListener('DOMContentLoaded', (event) => {
     var tabla = document.querySelector('.usuarios-seleccionados-tabla tbody');
     var usuarioLogueadoElement = document.getElementById('usuarioLogueado');
@@ -235,4 +208,27 @@ botonEliminar.addEventListener('click', function() {
     });
 });
 
+// Limitar la longitud del campo de título
+
+const titulo = document.getElementById('titulo');
+const maxLengthTitulo = 56;
+
+titulo.addEventListener('input', () => {
+    const text = titulo.value;
+    if (text.length > maxLengthTitulo) {
+        titulo.value = text.slice(0, maxLengthTitulo);
+    }
+});
+
+// Textarea límite de texto
+
+const textarea = document.querySelector('textarea');
+const maxLengthTextArea = 200;
+
+textarea.addEventListener('input', () => {
+    const text = textarea.value;
+    if (text.length > maxLengthTextArea) {
+        textarea.value = text.slice(0, maxLengthTextArea);
+    }
+});
 

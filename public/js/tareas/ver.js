@@ -1,30 +1,3 @@
-var inputs = document.querySelectorAll('#formulario input, #formulario textarea, #formulario select');
-
-// Recorre cada elemento y añade el atributo 'disabled'
-for (var i = 0; i < inputs.length; i++) {
-    inputs[i].disabled = true;
-}
-
-// Máximo de caracteres en el textarea
-document.getElementById('comentario').addEventListener('input', function() {
-    if (this.value.length > 500) {
-        this.value = this.value.slice(0, 500);
-    }
-});
-
-// Si textarea está vacia se deshabilita el botón de enviar
-window.onload = function() {
-    document.getElementById('btn-enviar').disabled = true;
-}
-
-document.getElementById('comentario').addEventListener('input', function() {
-    if (this.value.trim() === '') {
-        document.getElementById('btn-enviar').disabled = true;
-    } else {
-        document.getElementById('btn-enviar').disabled = false;
-    }
-});
-
 // Buscar usuarios
 
 var usuariosAgregados = [];
@@ -126,17 +99,36 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
+var inputs = document.querySelectorAll('#formulario input, #formulario textarea, #formulario select');
+
+// Recorre cada elemento y añade el atributo 'disabled'
+for (var i = 0; i < inputs.length; i++) {
+    inputs[i].disabled = true;
+}
+
 // Comentarios
 
 function activarTextarea(index) {
-    document.getElementById('comentario' + index).style.display = 'block';
-    document.getElementById('comentario' + index).style.textAlign = 'left';
-    document.getElementById('comentario' + index).disabled = false;
+    var textarea = document.getElementById('comentario' + index);
+    textarea.style.display = 'block';
+    textarea.style.textAlign = 'left';
+    textarea.style.fontSize = 'reset';
+    textarea.style.fontWeight = '400';
+    textarea.disabled = false;
     document.getElementById('parrafoComentario' + index).style.display = 'none';
     document.getElementById('eliminar' + index).style.display = 'block';
     document.getElementById('modificar' + index).style.display = 'none';
     document.getElementById('cancelar' + index).style.display = 'block';
     document.getElementById('enviar' + index).style.display = 'block';
+    document.getElementById('contenedorComentario').style.display='none';
+    document.getElementById('comentario').value='';
+
+    var comentarios = document.querySelectorAll('[id^="comentario"]');
+    for (var i = 0; i < comentarios.length; i++) {
+        if(i != index) {
+            cancelarModificacion(i);
+        }
+    }
 
     form.onsubmit = function(e) {
         e.preventDefault();
@@ -152,3 +144,46 @@ function cancelarModificacion(index) {
     document.getElementById('cancelar' + index).style.display = 'none';
     document.getElementById('formComentario' + index).reset();
 }
+
+function activarComentario(index) {
+    document.getElementById('contenedorComentario').style.display='flex';
+
+    var comentarios = document.querySelectorAll('[id^="comentario"]');
+    for (var i = 0; i < comentarios.length; i++) {
+        cancelarModificacion(i);
+    }
+
+    form.onsubmit = function(e) {
+        e.preventDefault();
+    };
+}
+
+// Máximo de caracteres en el textarea
+var textarea = document.getElementById('comentario' + index);
+
+textarea.addEventListener('input', function() {
+    if (this.value.length > 500) {
+        this.value = this.value.slice(0, 500);
+    }
+});
+
+document.getElementById('comentario').addEventListener('input', function() {
+    if (this.value.length > 500) {
+        this.value = this.value.slice(0, 500);
+    }
+});
+
+
+// Si textarea está vacia se deshabilita el botón de enviar
+window.onload = function() {
+    document.getElementById('btn-enviar').disabled = true;
+    document.getElementById('comentario' + index).setAttribute('maxlength', '500');
+}
+
+document.getElementById('comentario').addEventListener('input', function() {
+    if (this.value.trim() === '') {
+        document.getElementById('btn-enviar').disabled = true;
+    } else {
+        document.getElementById('btn-enviar').disabled = false;
+    }
+});

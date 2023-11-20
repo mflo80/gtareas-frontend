@@ -101,4 +101,6 @@
     };
 </script>
 
+<script src="{{ asset('js/tareas/buscar.js') }}"></script>
+
 @endsection
