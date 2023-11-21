@@ -226,3 +226,11 @@ select:disabled {
     padding: .5rem;
     background-color: #ccc;
 }
+
+
+@media (max-height: 920px) {
+    .sectores-comentarios {
+        margin-top: 1rem;
+        transform: scale(0.96);
+    }
+}

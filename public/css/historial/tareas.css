@@ -101,3 +101,14 @@
     text-overflow: none;
     white-space: none;
 }
+
+@media (max-height: 920px) {
+    .contenedor-buscar {
+        margin-top: -2rem;
+        transform: scale(0.98);
+    }
+
+    .tabla-historial{
+        font-size: 85%;
+    }
+}

@@ -12,7 +12,8 @@
             <div class="formulario-buscar-paginado">
                 <label class="formulario-buscar-titulo" for="estado">Cantidad de filas a mostrar:</label>
                 <select id="rowsPerPageHistorialComentarios" name="filasPorPaginaHistorialTareas">
-                    <option value="8" @if ($filasPorPaginaHistorialComentarios == 16) selected @endif>8</option>
+                    <option value="4" @if ($filasPorPaginaHistorialComentarios == 4) selected @endif>4</option>
+                    <option value="8" @if ($filasPorPaginaHistorialComentarios == 8) selected @endif>8</option>
                     <option value="16" @if ($filasPorPaginaHistorialComentarios == 16) selected @endif>16</option>
                     <option value="32" @if ($filasPorPaginaHistorialComentarios == 32) selected @endif>32</option>
                     <option value="64" @if ($filasPorPaginaHistorialComentarios == 64) selected @endif>64</option>
@@ -29,7 +30,7 @@
         </form>
     </div>
 
-    <table class="tabla-historial">
+    <table class="tabla-historial-comentarios">
         <thead class="tabla-historial-titulos">
             <tr>
                 <th class="columna-comentarios-id">Id</th>

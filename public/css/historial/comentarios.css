@@ -1,0 +1,13 @@
+.tabla-historial-comentarios{
+    width: 96%;
+    margin-left: 2%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: .3rem solid rgb(255, 255, 255);
+}
+
+@media (max-height: 920px) {
+    .tabla-historial-comentarios{
+        font-size: 95%;
+    }
+}

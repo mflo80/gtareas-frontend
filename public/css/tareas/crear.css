@@ -301,11 +301,12 @@ table td{
 
 @media (max-height: 920px) {
     body{
-        overflow-x: auto;
+        overflow: auto;
     }
 
     .contenedor-crear {
         top: 55%;
+        transform: translate(-50%, -50%) scale(0.86);
     }
 }
 

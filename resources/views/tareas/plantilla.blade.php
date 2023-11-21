@@ -12,6 +12,7 @@
     <link href="{{ asset('/css/tareas/ver.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/tareas/buscar.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/historial/tareas.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/historial/comentarios.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/error/error.css') }}" rel="stylesheet">
     <script src="{{ asset('js/externos/jQuery.js') }}"></script>
     <script src="{{ asset('js/externos/bootstrap.min.js') }}"></script>

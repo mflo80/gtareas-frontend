@@ -15,6 +15,16 @@
     font-size: 1.3rem;
 }
 
+@media (max-height: 920px) {
+    body{
+        overflow: auto;
+    }
+
+    .contenedor-modificar {
+        top: 55%;
+        transform: translate(-50%, -50%) scale(0.86);
+    }
+}
 
 @media (max-width: 768px) {
 
