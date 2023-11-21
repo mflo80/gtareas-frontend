@@ -22,6 +22,7 @@ class ComentarioController extends Controller
             "Authorization" => "Bearer $token"
         ])->post(getenv('GTAPI_COMENTARIOS'), $datos);
 
+
         if ($response->successful()) {
             return redirect()->route('tareas.ver', [
                 'id' => $request->input('id_tarea')
@@ -69,6 +70,7 @@ class ComentarioController extends Controller
         $token = $this->getActiveUserToken();
 
         $id = $request->input('id');
+        $id_tarea = $request->input('id_tarea');
 
         $response = Http::withHeaders([
             "Accept" => "application/json",
@@ -77,13 +79,13 @@ class ComentarioController extends Controller
 
         if ($response->successful()) {
             return redirect()->route('tareas.ver', [
-                'id' => $request->input('id_tarea')
+                'id' => $id_tarea
             ])->with('success', 'Comentario eliminado correctamente');
         }
 
         if ($response->getStatusCode() != 200) {
             return redirect()->route('tareas.ver', [
-                'id' => $request->input('id_tarea')
+                'id' => $id_tarea
             ])->with('error', 'Error al eliminar el comentario');
         }
     }

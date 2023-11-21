@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Cache;
 
 class InicioController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
     public function ayuda()
     {
         $usuarioLogueado = $this->getActiveUserData();

@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class HistorialController extends Controller
 {
-    public function historial_comentarios()
-    {
-        $usuarioLogueado = $this->getActiveUserData();
-
-        return view('historial.comentarios', ['usuarioLogueado' => $usuarioLogueado]);
-    }
-
     public function historial_tareas(Request $request)
     {
         $usuarioLogueado = $this->getActiveUserData();
@@ -33,7 +27,9 @@ class HistorialController extends Controller
         $filasPorPaginaHistorialTareas = $request->input('filasPorPaginaHistorialTareas', $filasPorPaginaHistorialTareas);
         $paginaActualHistorialTareas  = $request->input('pagina', 1);
 
-        Cache::put('filasPorPaginaHistorialTareas', $filasPorPaginaHistorialTareas);
+        if(Cache::has('filasPorPaginaHistorialTareas') == false){
+            Cache::put('filasPorPaginaHistorialTareas', $filasPorPaginaHistorialTareas, Carbon::now()->addMinutes(360));
+        }
 
         $ordenHistorial = 'desc';
 
@@ -46,12 +42,12 @@ class HistorialController extends Controller
         }
 
         $ordenHistorial = $request->input('ordenHistorial', $ordenHistorial);
-        Cache::put('ordenHistorial', $ordenHistorial);
+        Cache::put('ordenHistorial', $ordenHistorial, Carbon::now()->addMinutes(360));
 
         $response = Http::withHeaders([
             "Accept" => "application/json",
             "Authorization" => "Bearer $token"
-        ])->get(getenv('GTAPI_HISTORIAL'), [
+        ])->get(getenv('GTAPI_HISTORIAL_TAREAS'), [
             'filasPorPaginaHistorialTareas' => $filasPorPaginaHistorialTareas,
             'paginaActualHistorialTareas' => $paginaActualHistorialTareas ,
         ]);
@@ -151,8 +147,137 @@ class HistorialController extends Controller
             ]);
         }
 
-        return redirect()->route('tareas.error')->withErrors([
-            'message' => $valores['message'],
+        return view('historial.tareas', [
+            'historiales' => [],
+            'usuarioLogueado' => $usuarioLogueado,
+            'paginaActualHistorialTareas' => "1",
+            'filasPorPaginaHistorialTareas' => "16",
+            'totalPaginas' => "1",
+            'totalTareas' => "1",
+            'ordenHistorial' => $ordenHistorial,
+        ]);
+    }
+
+    public function historial_comentarios(Request $request)
+    {
+        $usuarioLogueado = $this->getActiveUserData();
+        $token = $this->getActiveUserToken();
+
+        $filasPorPaginaHistorialComentarios = 16;
+
+        if(Cache::has('filasPorPaginaHistorialComentarios')){
+            $filasPorPaginaHistorialComentarios = Cache::get('filasPorPaginaHistorialComentarios');
+
+            if($filasPorPaginaHistorialComentarios == null || $filasPorPaginaHistorialComentarios == '' || $filasPorPaginaHistorialComentarios == 0){
+                $filasPorPaginaHistorialComentarios = 16;
+            }
+        }
+
+        $filasPorPaginaHistorialComentarios = $request->input('filasPorPaginaHistorialComentarios', $filasPorPaginaHistorialComentarios);
+        $paginaActualHistorialComentarios = $request->input('pagina', 1);
+
+        if(Cache::has('filasPorPaginaHistorialComentarios') == false){
+            Cache::put('filasPorPaginaHistorialComentarios', $filasPorPaginaHistorialComentarios, Carbon::now()->addMinutes(360));
+        }
+
+        $ordenHistorialComentarios = 'desc';
+
+        if(Cache::has('ordenHistorialComentarios')){
+            $ordenHistorialComentarios = Cache::get('ordenHistorialComentarios');
+        }
+
+        if($ordenHistorialComentarios == null || $ordenHistorialComentarios == ''){
+            $ordenHistorialComentarios = 'desc';
+        }
+
+        $ordenHistorialComentarios = $request->input('ordenHistorialComentarios', $ordenHistorialComentarios);
+        Cache::put('ordenHistorialComentarios', $ordenHistorialComentarios, Carbon::now()->addMinutes(360));
+
+        $response = Http::withHeaders([
+            "Accept" => "application/json",
+            "Authorization" => "Bearer $token"
+        ])->get(getenv('GTAPI_HISTORIAL_COMENTARIOS'), [
+            'filasPorPaginaHistorialComentarios' => $filasPorPaginaHistorialComentarios,
+            'paginaActualHistorialComentarios' => $paginaActualHistorialComentarios ,
+        ]);
+
+        $valores = json_decode($response->body(), true);
+
+        if ($response->successful()) {
+            $historiales = $valores['comentarios']  ?? [];
+
+            if($ordenHistorialComentarios == 'desc'){
+                $historiales = array_reverse($historiales);
+            }
+
+            $totalTareas = count($historiales);
+            $totalPaginas = ceil($totalTareas / $filasPorPaginaHistorialComentarios);
+
+            if($paginaActualHistorialComentarios > $totalPaginas){
+                return redirect()->to('error.404');
+            }
+
+            $tareasAsignadas = $this->getTareasAsignadas();
+
+            $idsTareas = [];
+            foreach ($tareasAsignadas as $tareaAsignadaUsuario) {
+                if ($tareaAsignadaUsuario['id_usuario_asignado'] == $usuarioLogueado['id']) {
+                    $idsTareas[] = $tareaAsignadaUsuario['id_tarea'];
+                }
+            }
+
+            $historiales = array_slice($historiales, ($paginaActualHistorialComentarios - 1) * $filasPorPaginaHistorialComentarios, $filasPorPaginaHistorialComentarios);
+
+            $response = Http::withHeaders([
+                "Accept" => "application/json",
+                "Authorization" => "Bearer $token"
+            ])->get(getenv('GTOAUTH_USUARIOS'));
+
+            if ($response->successful()) {
+                $usuarios = json_decode($response->body(), true);
+                $usuarios = $usuarios['usuarios'] ?? [];
+
+                foreach ($historiales as &$historial) {
+                    $usuarioCreadorId = $historial['id_usuario'];
+                    if ($usuarioCreadorId != null) {
+                        foreach ($usuarios as $usuario) {
+                            if ($usuario['id'] == $usuarioCreadorId) {
+                                $historial['nombre'] = $usuario['nombre'];
+                                $historial['apellido'] = $usuario['apellido'];
+                            }
+                        }
+                    }
+
+                    if ($usuarioCreadorId == null) {
+                        $historial['nombre'] = '';
+                        $historial['apellido'] = '';
+                    }
+
+                    if (in_array($historial['id_tarea'], $idsTareas)) {
+                        $historial['tarea_asignada'] = 1;
+                    }
+                }
+            }
+
+            return view('historial.comentarios', [
+                'historiales' => $historiales,
+                'usuarioLogueado' => $usuarioLogueado,
+                'paginaActualHistorialComentarios' => $paginaActualHistorialComentarios,
+                'filasPorPaginaHistorialComentarios' => $filasPorPaginaHistorialComentarios,
+                'totalPaginas' => $totalPaginas,
+                'totalTareas' => $totalTareas,
+                'ordenHistorialComentarios' => $ordenHistorialComentarios,
+            ]);
+        }
+
+        return view('historial.comentarios', [
+            'historiales' => [],
+            'usuarioLogueado' => $usuarioLogueado,
+            'paginaActualHistorialComentarios' => '1',
+            'filasPorPaginaHistorialComentarios' => '16',
+            'totalPaginas' => '1',
+            'totalTareas' => '0',
+            'ordenHistorialComentarios' => $ordenHistorialComentarios,
         ]);
     }
 }

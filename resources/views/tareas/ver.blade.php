@@ -130,11 +130,7 @@
                             <span>{{ $tareaComentario['nombre_usuario'] }} {{ $tareaComentario['apellido_usuario'] }}</span>
                         </span>
                         <span class="ver-botones">
-                            <form method="POST" action="{{ route('comentarios.eliminar', $tareaComentario['id']) }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-rojo" id="eliminar{{ $index }}" style="display: none;">Eliminar</button>
-                            </form>
+                            <button type="button" class="btn-rojo" id="eliminar{{ $index }}" onclick="document.getElementById('formComentarioEliminar{{ $index }}').submit();" style="display: none;">Eliminar</button>
                             <button type="button" class="btn-gris" id="cancelar{{ $index }}" onclick="cancelarModificacion({{ $index }});" style="display: none;">Cancelar</button>
                             <button type="button" class="btn-gris" id="modificar{{ $index }}" onclick="activarTextarea({{ $index }}),
                                 document.getElementById('formComentario{{ $index }}');"
@@ -142,6 +138,12 @@
                             <button type="submit" class="btn-azul" id="enviar{{ $index }}" style="display: none;">Enviar</button>
                         </span>
                     </div>
+                </form>
+                <form id="formComentarioEliminar{{ $index }}" method="POST" action="{{ route('comentarios.eliminar') }}" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                    <input type="hidden" id="id{{ $index }}" name="id" value="{{ $tareaComentario['id'] }}">
+                    <input type="hidden" id="id_tarea{{ $index }}" name="id_tarea" value="{{ $tarea['id'] }}">
                 </form>
             @endforeach
         </div>

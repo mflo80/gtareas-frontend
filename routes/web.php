@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\ErrorController;
-use App\Http\Controllers\TareaController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\TareaController;
+use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\PasswordController;
-use App\Http\Controllers\HistorialController;
-use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\ErrorController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', "index")->name('index');
@@ -29,9 +29,15 @@ Route::controller(TareaController::class)->middleware('autenticacion')->group(fu
     Route::delete('eliminar-tarea-{id}', 'eliminar');
 });
 
+Route::controller(ComentarioController::class)->middleware('autenticacion')->group(function () {
+    Route::post('comentarios', 'crear_comentario')->name('comentarios.crear');
+    Route::put('comentarios', 'modificar_comentario')->name('comentarios.modificar');
+    Route::delete('comentarios', 'eliminar_comentario')->name('comentarios.eliminar');
+});
+
 Route::controller(HistorialController::class)->middleware('autenticacion')->group(function () {
-    Route::get('historial-comentarios', 'historial_comentarios')->name('historial.comentarios');
     Route::get('historial-tareas', 'historial_tareas')->name('historial.tareas');
+    Route::get('historial-comentarios', 'historial_comentarios')->name('historial.comentarios');
 });
 
 Route::controller(LoginController::class)->group(function () {
@@ -55,12 +61,6 @@ Route::controller(PasswordController::class)->middleware('guest')->group(functio
 
 Route::controller(ErrorController::class)->middleware('autenticacion')->group(function () {
     Route::get('error-404', 'index')->name('tareas.error');
-});
-
-Route::controller(ComentarioController::class)->middleware('autenticacion')->group(function () {
-    Route::post('comentarios', 'crear_comentario')->name('comentarios.crear');
-    Route::put('comentarios', 'modificar_comentario')->name('comentarios.modificar');
-    Route::delete('comentarios', 'eliminar_comentario')->name('comentarios.eliminar');
 });
 
 Route::fallback(function () {

@@ -187,3 +187,4 @@ document.getElementById('comentario').addEventListener('input', function() {
         document.getElementById('btn-enviar').disabled = false;
     }
 });
+

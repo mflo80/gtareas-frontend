@@ -92,6 +92,10 @@
     word-wrap: break-word;
 }
 
+.celda-historial-tarea{
+    font-weight: bold;
+}
+
 .celda-historial-fecha-modificacion{
     font-size: auto;
     text-overflow: none;
