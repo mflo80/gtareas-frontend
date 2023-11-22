@@ -231,6 +231,7 @@ select:disabled {
 @media (max-height: 920px) {
     .sectores-comentarios {
         margin-top: 1rem;
+        margin-bottom: 2rem;
         transform: scale(0.96);
     }
 }

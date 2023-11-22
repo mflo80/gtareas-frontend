@@ -63,7 +63,6 @@ $(document).ready(function() {
 
 // Buscar usuarios
 
-var usuariosAgregados = [];
 var usuarioLogueadoElement = document.getElementById('usuarioLogueado');
 var usuarioLogueado = usuarioLogueadoElement.dataset.nombre + ' ' + usuarioLogueadoElement.dataset.apellido;
 var usuarioLogueadoId = usuarioLogueadoElement.dataset.id;

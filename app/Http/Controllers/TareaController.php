@@ -429,6 +429,7 @@ class TareaController extends Controller
 
                 if($response->getStatusCode() == 200){
                     $tareaAsignada = $valoresAsigna['tarea_asignada'];
+                    $usuarioCreador = null;
 
                     foreach($usuarios as $usuario){
                         foreach($tareaAsignada as $tareaAsignadaUsuario){
@@ -509,6 +510,7 @@ class TareaController extends Controller
         $valores = json_decode($response->body(), true);
 
         $tareaAsignada = $this->getTareaAsignada($tarea['id']);
+
         foreach ($tareaAsignada as $usuarioAsignado) {
             $usuariosAsignados[] = $usuarioAsignado['id_usuario_asignado'];
         }
@@ -522,21 +524,14 @@ class TareaController extends Controller
                 ]);
             }
 
-            foreach($usuariosAsignados as $usuarioAsignado){
-                if(!in_array($usuarioAsignado, $idsUsuarios)){
-                    if($usuarioAsignado != $idUsuarioCreador){
-                        $response = Http::withHeaders([
-                            "Accept" => "application/json",
-                            "Authorization" => "Bearer $token"
-                        ])->delete(getenv("GTAPI_ASIGNA")."/".$idUsuarioCreador."/".$usuarioAsignado."/".$tarea['id']);
-                    }
-                }
-            }
+            $usuarioAsignadoCorrectamente = [];
 
-            $usuarioAsignadoCorrectamente = false;
 
-            foreach($idsUsuarios as $idUsuario){
-                if(!in_array($idUsuario, $usuariosAsignados)){
+            $usuariosAsignadosAgregados = array_diff($idsUsuarios, $usuariosAsignados);
+            $usuariosAsignadosEliminados = array_diff($usuariosAsignados, $idsUsuarios);
+
+            foreach($usuariosAsignadosAgregados as $idUsuario){
+                if($idUsuario != $idUsuarioCreador){
                     $datosAsigna = [
                         'id_usuario_creador' => $idUsuarioCreador,
                         'id_usuario_asignado' => $idUsuario,
@@ -549,7 +544,20 @@ class TareaController extends Controller
                     ])->post(getenv("GTAPI_ASIGNA"), $datosAsigna);
 
                     if($response->getStatusCode() == 200){
-                        $usuarioAsignadoCorrectamente = true;
+                        $usuarioAsignadoCorrectamente[] = $response->body();
+                    }
+                }
+            }
+
+            foreach($usuariosAsignadosEliminados as $idUsuario){
+                if($idUsuario != $idUsuarioCreador){
+                    $response = Http::withHeaders([
+                        "Accept" => "application/json",
+                        "Authorization" => "Bearer $token"
+                    ])->delete(getenv("GTAPI_ASIGNA")."/".$idUsuarioCreador."/".$idUsuario."/".$tarea['id']);
+
+                    if($response->getStatusCode() == 200){
+                        $usuarioAsignadoCorrectamente[] = $response->body();
                     }
                 }
             }
