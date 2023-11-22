@@ -108,12 +108,24 @@ for (var i = 0; i < inputs.length; i++) {
 
 // Comentarios
 
+$(document).ready(function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var comentar = urlParams.get('comentar');
+
+    if (comentar === 'true') {
+        activarComentario();
+    }
+});
+
 function activarTextarea(index) {
     var textarea = document.getElementById('comentario' + index);
+    var texto = textarea.value;
     textarea.style.display = 'block';
     textarea.style.textAlign = 'left';
     textarea.style.fontSize = 'reset';
     textarea.style.fontWeight = '400';
+    textarea.focus();
+    textarea.setSelectionRange(texto.length, texto.length);
     textarea.disabled = false;
     document.getElementById('parrafoComentario' + index).style.display = 'none';
     document.getElementById('eliminar' + index).style.display = 'block';
@@ -145,8 +157,11 @@ function cancelarModificacion(index) {
     document.getElementById('formComentario' + index).reset();
 }
 
-function activarComentario(index) {
+function activarComentario() {
+    $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
+
     document.getElementById('contenedorComentario').style.display='flex';
+    document.getElementById('comentario').focus();
 
     var comentarios = document.querySelectorAll('[id^="comentario"]');
     for (var i = 0; i < comentarios.length; i++) {

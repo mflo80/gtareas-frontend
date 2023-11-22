@@ -59,7 +59,8 @@
                                         data-url="{{ route('tareas.ver', $tarea['id']) }}">Ver</button>
                                     <button id="botonModificar-{{ $tarea['id'] }}" class="btn-rojo"
                                         data-url="{{ route('tareas.modificar', $tarea['id']) }}">Modificar</button>
-                                    <button class="btn-gris">Comentar</button>
+                                    <button id="botonComentar-{{ $tarea['id'] }}" class="btn-gris"
+                                        data-url="{{ route('tareas.ver', $tarea['id']) }}">Comentar</button>
                                 </td>
                             </tr>
                         </tbody>

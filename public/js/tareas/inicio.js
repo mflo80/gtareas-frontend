@@ -76,6 +76,13 @@ $(document).ready(function(){
     });
 });
 
+$(document).ready(function(){
+    $("[id^='botonComentar']").click(function(){
+        var url = $(this).data('url');
+        window.location.href = url + '?comentar=true';
+    });
+});
+
 document.addEventListener("DOMContentLoaded", function() {
     const toggle = document.querySelector('.toggle');
     const menu = document.querySelector('.menu');
