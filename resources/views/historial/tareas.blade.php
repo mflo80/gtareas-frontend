@@ -22,9 +22,9 @@
                 </div>
                 <div class="formulario-buscar-orden">
                     <label class="formulario-buscar-titulo" for="orden">Ordenar por ID:</label>
-                    <select id="ordenHistorial" name="ordenHistorial">
-                        <option value="asc" @if ($ordenHistorial == 'asc') selected @endif>Ascendente</option>
-                        <option value="desc" @if ($ordenHistorial == 'desc') selected @endif>Descendente</option>
+                    <select id="ordenHistorialTareas" name="ordenHistorialTareas">
+                        <option value="asc" @if ($ordenHistorialTareas == 'asc') selected @endif>Ascendente</option>
+                        <option value="desc" @if ($ordenHistorialTareas == 'desc') selected @endif>Descendente</option>
                     </select>
                 </div>
             </form>
@@ -55,7 +55,7 @@
                         <td class="celda-historial-id" rowspan="2">{{ $tarea['id'] }}</td>
                         <td class="celda-historial-evento" rowspan="2">{{ $tarea['evento'] }}</td>
                         <td class="celda-historial-tarea" rowspan="2">{{ $tarea['id_tarea'] }}</td>
-                        <td class="celda-historial-tipo">Old</td>
+                        <td class="celda-historial-tipo">Anterior</td>
                         <td class="celda-historial-titulo">{{ $tarea['old_titulo'] }}</td>
                         <td class="celda-historial-texto">{{ $tarea['old_texto'] }}</td>
                         <td class="celda-historial-fecha-inicio">{{ empty($tarea['old_fecha_hora_inicio']) ? '' : (new DateTime($tarea['old_fecha_hora_inicio']))->format('Y-m-d') }}</td>
@@ -73,7 +73,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="celda-historial-tipo">New</td>
+                        <td class="celda-historial-tipo">Nuevo</td>
                         <td class="celda-historial-titulo">{{ $tarea['new_titulo'] }}</td>
                         <td class="celda-historial-texto">{{ $tarea['new_texto'] }}</td>
                         <td class="celda-historial-fecha-inicio">{{ empty($tarea['new_fecha_hora_inicio']) ? '' : (new DateTime($tarea['new_fecha_hora_inicio']))->format('Y-m-d') }}</td>
@@ -89,7 +89,7 @@
         <div class="paginacion">
             <button class="btn-paginacion" onclick="window.location.href =
                 '{{ route('historial.tareas', ['filasPorPaginaHistorialTareas' => $filasPorPaginaHistorialTareas, 'pagina' => 1]) }}'"
-                @if ($paginaActualHistorialTareas == 1) disabled @endif>&#x23EE;</button>
+                @if ($paginaActualHistorialTareas == 1) disabled @endif>&#x25C0;&#x25C0;</button>
 
             @if ($paginaActualHistorialTareas > 1)
                 <button class="btn-paginacion" onclick="window.location.href =
@@ -105,7 +105,7 @@
 
             <button class="btn-paginacion" onclick="window.location.href =
                 '{{ route('historial.tareas', ['filasPorPaginaHistorialTareas' => $filasPorPaginaHistorialTareas, 'pagina' => $totalPaginas]) }}'"
-                @if ($paginaActualHistorialTareas == $totalPaginas) disabled @endif>&#x23ED;</button>
+                @if ($paginaActualHistorialTareas == $totalPaginas) disabled @endif>&#x25B6;&#x25B6;</button>
         </div>
 
 

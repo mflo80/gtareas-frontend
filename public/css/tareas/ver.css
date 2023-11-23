@@ -19,7 +19,7 @@
     margin: 2rem 1rem 1rem 1rem;
     width: calc(50% - 1rem);
     flex: 1;
-    margin-bottom: 3rem;
+    margin-bottom: 6rem;
     background-color: #ccc;
     border: 0.2rem solid black;
     padding: .5rem;
@@ -226,7 +226,6 @@ select:disabled {
     padding: .5rem;
     background-color: #ccc;
 }
-
 
 @media (max-height: 920px) {
     .sectores-comentarios {

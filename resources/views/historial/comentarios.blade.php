@@ -11,7 +11,7 @@
         <form id="paginationFormHistorialComentarios" method="GET">
             <div class="formulario-buscar-paginado">
                 <label class="formulario-buscar-titulo" for="estado">Cantidad de filas a mostrar:</label>
-                <select id="rowsPerPageHistorialComentarios" name="filasPorPaginaHistorialTareas">
+                <select id="rowsPerPageHistorialComentarios" name="filasPorPaginaHistorialComentarios">
                     <option value="4" @if ($filasPorPaginaHistorialComentarios == 4) selected @endif>4</option>
                     <option value="8" @if ($filasPorPaginaHistorialComentarios == 8) selected @endif>8</option>
                     <option value="16" @if ($filasPorPaginaHistorialComentarios == 16) selected @endif>16</option>
@@ -22,7 +22,7 @@
             </div>
             <div class="formulario-buscar-orden">
                 <label class="formulario-buscar-titulo" for="orden">Ordenar por ID:</label>
-                <select id="ordenHistorialComentarios" name="ordenHistorial">
+                <select id="ordenHistorialComentarios" name="ordenHistorialComentarios">
                     <option value="asc" @if ($ordenHistorialComentarios == 'asc') selected @endif>Ascendente</option>
                     <option value="desc" @if ($ordenHistorialComentarios == 'desc') selected @endif>Descendente</option>
                 </select>
@@ -36,8 +36,8 @@
                 <th class="columna-comentarios-id">Id</th>
                 <th class="columna-comentarios-evento">Evento</th>
                 <th class="columna-comentarios-tarea">Tarea</th>
-                <th class="columna-comentarios-tipo">Usuario</th>
-                <th class="columna-comentarios-texto">Fecha Creación</th>
+                <th class="columna-comentarios-usuario">Usuario</th>
+                <th class="columna-comentarios-fecha-creacion">Fecha Creación</th>
                 <th class="columna-comentarios-tipo">Tipo</th>
                 <th class="columna-comentarios-texto">Comentario</th>
                 <th class="columna-comentarios-fecha-inicio">Fecha Modificación</th>
@@ -51,8 +51,8 @@
                     <td class="celda-comentarios-evento" rowspan="2">{{ $tarea['evento'] }}</td>
                     <td class="celda-comentarios-tarea" rowspan="2">{{ $tarea['id_tarea'] }}</td>
                     <td class="celda-comentarios-usuario" rowspan="2">{{ $tarea['nombre'] }} {{ $tarea['apellido'] }}</td>
-                    <td class="celda-comentarios-fecha-inicio" rowspan="2">{{ empty($tarea['fecha_hora_creacion']) ? '' : (new DateTime($tarea['fecha_hora_creacion']))->format('Y-m-d') }}</td>
-                    <td class="celda-comentarios-tipo">Old</td>
+                    <td class="celda-comentarios-fecha-inicio" rowspan="2">{{ empty($tarea['fecha_hora_creacion']) ? '' : (new DateTime($tarea['fecha_hora_creacion']))->format('Y-m-d H:i') }}</td>
+                    <td class="celda-comentarios-tipo">Anterior</td>
                     <td class="celda-comentarios-texto">{{ $tarea['old_comentario'] }}</td>
                     <td class="celda-comentarios-fecha-modificacion" rowspan="2">{{ date('Y-m-d H:i', strtotime($tarea['fecha_hora_modificacion'])) }}</td>
                     <td class="celda-comentarios-opciones" rowspan="2">
@@ -63,7 +63,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="celda-comentarios-tipo">New</td>
+                    <td class="celda-comentarios-tipo">Nuevo</td>
                     <td class="celda-comentarios-texto">{{ $tarea['new_comentario'] }}</td>
                 </tr>
             @endforeach
@@ -73,7 +73,7 @@
     <div class="paginacion">
         <button class="btn-paginacion" onclick="window.location.href =
             '{{ route('historial.comentarios', ['filasPorPaginaHistorialComentarios' => $filasPorPaginaHistorialComentarios, 'pagina' => 1]) }}'"
-            @if ($paginaActualHistorialComentarios == 1) disabled @endif>&#x23EE;</button>
+            @if ($paginaActualHistorialComentarios == 1) disabled @endif>&#x25C0;&#x25C0;</button>
 
         @if ($paginaActualHistorialComentarios > 1)
             <button class="btn-paginacion" onclick="window.location.href =
@@ -89,7 +89,7 @@
 
         <button class="btn-paginacion" onclick="window.location.href =
             '{{ route('historial.comentarios', ['filasPorPaginaHistorialComentarios' => $filasPorPaginaHistorialComentarios, 'pagina' => $totalPaginas]) }}'"
-            @if ($paginaActualHistorialComentarios == $totalPaginas) disabled @endif>&#x23ED;</button>
+            @if ($paginaActualHistorialComentarios == $totalPaginas) disabled @endif>&#x25B6;&#x25B6;</button>
     </div>
 
 <script>

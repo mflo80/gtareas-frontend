@@ -17,7 +17,7 @@ $(document).ready(function() {
         window.location.href = window.routes.buscarHistorialTareas + '?filasPorPaginaHistorialTareas=' + this.value + '&pagina=1';
     });
 
-    document.getElementById('ordenHistorial').addEventListener('change', function() {
-        window.location.href = window.routes.buscarHistorialTareas + '?ordenHistorial=' + this.value;
+    document.getElementById('ordenHistorialTareas').addEventListener('change', function() {
+        window.location.href = window.routes.buscarHistorialTareas + '?ordenHistorialTareas=' + this.value;
     });
 });

@@ -6,6 +6,38 @@
     border: .3rem solid rgb(255, 255, 255);
 }
 
+.tabla-historial-titulos{
+    font-weight: bold;
+    font-size: 99%;
+}
+
+.columna-comentarios-id,
+.columna-comentarios-tarea{
+    width: 5%;
+}
+
+.columna-comentarios-usuario{
+    width: 15%;
+}
+
+.columna-comentarios-evento,
+.columna-comentarios-fecha-creacion,
+.columna-comentarios-fecha-inicio{
+    width: 7%;
+}
+
+.columna-comentarios-tipo{
+    width: 5%;
+}
+
+.columna-comentarios-opciones{
+    width: 7%;
+}
+
+.columna-comentarios-comentario{
+    width: 49%;
+}
+
 @media (max-height: 920px) {
     .tabla-historial-comentarios{
         font-size: 95%;

@@ -72,19 +72,19 @@ class TareaController extends Controller
         $ordenTareasInput = $request->input('ordenTareas');
 
         if ($filasPorPaginaInput) {
-            Cache::put('filasPorPagina', $filasPorPaginaInput, Carbon::now()->addMinutes(60));
+            Cache::put('filasPorPagina'.$usuarioLogueado['id'], $filasPorPaginaInput, Carbon::now()->addMinutes(60));
             $filasPorPagina = $filasPorPaginaInput;
         } else {
-            $filasPorPagina = Cache::remember('filasPorPagina', Carbon::now()->addMinutes(60), function () {
+            $filasPorPagina = Cache::remember('filasPorPagina'.$usuarioLogueado['id'], Carbon::now()->addMinutes(60), function () {
                 return 15;
             });
         }
 
         if ($ordenTareasInput) {
-            Cache::put('ordenTareas', $ordenTareasInput, Carbon::now()->addMinutes(60));
+            Cache::put('ordenTareas'.$usuarioLogueado['id'], $ordenTareasInput, Carbon::now()->addMinutes(60));
             $ordenTareas = $ordenTareasInput;
         } else {
-            $ordenTareas = Cache::remember('ordenTareas', Carbon::now()->addMinutes(60), function () {
+            $ordenTareas = Cache::remember('ordenTareas'.$usuarioLogueado['id'], Carbon::now()->addMinutes(60), function () {
                 return 'asc';
             });
         }

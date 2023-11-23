@@ -16,22 +16,22 @@ class HistorialController extends Controller
 
         $paginaActualHistorialTareas  = $request->input('pagina', 1);
         $filasPorPaginaHistorialTareasInput = $request->input('filasPorPaginaHistorialTareas');
-        $ordenHistorialInput = $request->input('ordenHistorial');
+        $ordenHistorialTareasInput = $request->input('ordenHistorialTareas');
 
         if ($filasPorPaginaHistorialTareasInput) {
-            Cache::put('filasPorPaginaHistorialTareas', $filasPorPaginaHistorialTareasInput, Carbon::now()->addMinutes(60));
+            Cache::put('filasPorPaginaHistorialTareas'.$usuarioLogueado['id'], $filasPorPaginaHistorialTareasInput, Carbon::now()->addMinutes(60));
             $filasPorPaginaHistorialTareas = $filasPorPaginaHistorialTareasInput;
         } else {
-            $filasPorPaginaHistorialTareas = Cache::remember('filasPorPaginaHistorialTareas', Carbon::now()->addMinutes(60), function () {
-                return 15;
+            $filasPorPaginaHistorialTareas = Cache::remember('filasPorPaginaHistorialTareas'.$usuarioLogueado['id'], Carbon::now()->addMinutes(60), function () {
+                return 8;
             });
         }
 
-        if ($ordenHistorialInput) {
-            Cache::put('ordenHistorial', $ordenHistorialInput, Carbon::now()->addMinutes(60));
-            $ordenHistorial = $ordenHistorialInput;
+        if ($ordenHistorialTareasInput) {
+            Cache::put('ordenHistorialTareas'.$usuarioLogueado['id'], $ordenHistorialTareasInput, Carbon::now()->addMinutes(60));
+            $ordenHistorialTareas = $ordenHistorialTareasInput;
         } else {
-            $ordenHistorial = Cache::remember('ordenHistorial', Carbon::now()->addMinutes(60), function () {
+            $ordenHistorialTareas = Cache::remember('ordenHistorialTareas'.$usuarioLogueado['id'], Carbon::now()->addMinutes(60), function () {
                 return 'asc';
             });
         }
@@ -47,10 +47,9 @@ class HistorialController extends Controller
         $valores = json_decode($response->body(), true);
 
         if ($response->successful()) {
-            $historiales = json_decode($response->body(), true);
-            $historiales = $historiales['tareas'] ?? [];
+            $historiales = $valores['tareas'] ?? [];
 
-            if($ordenHistorial == 'desc'){
+            if($ordenHistorialTareas == 'desc'){
                 $historiales = array_reverse($historiales);
             }
 
@@ -135,7 +134,7 @@ class HistorialController extends Controller
                 'filasPorPaginaHistorialTareas' => $filasPorPaginaHistorialTareas,
                 'totalPaginas' => $totalPaginas,
                 'totalTareas' => $totalTareas,
-                'ordenHistorial' => $ordenHistorial,
+                'ordenHistorialTareas' => $ordenHistorialTareas,
             ]);
         }
 
@@ -146,7 +145,7 @@ class HistorialController extends Controller
             'filasPorPaginaHistorialTareas' => "16",
             'totalPaginas' => "1",
             'totalTareas' => "1",
-            'ordenHistorial' => $ordenHistorial,
+            'ordenHistorialTareas' => $ordenHistorialTareas,
         ]);
     }
 
@@ -160,19 +159,19 @@ class HistorialController extends Controller
         $ordenHistorialComentariosInput = $request->input('ordenHistorialComentarios');
 
         if ($filasPorPaginaHistorialComentariosInput) {
-            Cache::put('filasPorPaginaHistorialComentarios', $filasPorPaginaHistorialComentariosInput, Carbon::now()->addMinutes(60));
+            Cache::put('filasPorPaginaHistorialComentarios'.$usuarioLogueado['id'], $filasPorPaginaHistorialComentariosInput, Carbon::now()->addMinutes(60));
             $filasPorPaginaHistorialComentarios = $filasPorPaginaHistorialComentariosInput;
         } else {
-            $filasPorPaginaHistorialComentarios = Cache::remember('filasPorPaginaHistorialComentarios', Carbon::now()->addMinutes(60), function () {
-                return 15;
+            $filasPorPaginaHistorialComentarios = Cache::remember('filasPorPaginaHistorialComentarios'.$usuarioLogueado['id'], Carbon::now()->addMinutes(60), function () {
+                return 8;
             });
         }
 
         if ($ordenHistorialComentariosInput) {
-            Cache::put('ordenHistorialComentarios', $ordenHistorialComentariosInput, Carbon::now()->addMinutes(60));
+            Cache::put('ordenHistorialComentarios'.$usuarioLogueado['id'], $ordenHistorialComentariosInput, Carbon::now()->addMinutes(60));
             $ordenHistorialComentarios = $ordenHistorialComentariosInput;
         } else {
-            $ordenHistorialComentarios = Cache::remember('ordenHistorialComentarios', Carbon::now()->addMinutes(60), function () {
+            $ordenHistorialComentarios = Cache::remember('ordenHistorialComentarios'.$usuarioLogueado['id'], Carbon::now()->addMinutes(60), function () {
                 return 'asc';
             });
         }

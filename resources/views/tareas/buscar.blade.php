@@ -71,7 +71,7 @@
         <div class="paginacion">
             <button class="btn-paginacion" onclick="window.location.href =
                 '{{ route('tareas.buscar', ['filasPorPagina' => $filasPorPagina, 'pagina' => 1]) }}'"
-                @if ($paginaActual == 1) disabled @endif>&#x23EE;</button>
+                @if ($paginaActual == 1) disabled @endif>&#x25C0;&#x25C0;</button>
 
             @if ($paginaActual > 1)
                 <button class="btn-paginacion" onclick="window.location.href =
@@ -87,7 +87,7 @@
 
             <button class="btn-paginacion" onclick="window.location.href =
                 '{{ route('tareas.buscar', ['filasPorPagina' => $filasPorPagina, 'pagina' => $totalPaginas]) }}'"
-                @if ($paginaActual == $totalPaginas) disabled @endif>&#x23ED;</button>
+                @if ($paginaActual == $totalPaginas) disabled @endif>&#x25B6;&#x25B6;</button>
         </div>
     </div> <!-- Fin contenedor-buscar -->
 
