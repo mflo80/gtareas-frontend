@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -66,32 +67,27 @@ class TareaController extends Controller
         $token = $this->getActiveUserToken();
         $usuarioLogueado = $this->getActiveUserData();
 
-        $filasPorPagina = 15;
-
-        if(Cache::has('filasPorPagina')){
-            $filasPorPagina = Cache::get('filasPorPagina');
-        }
-
-        if($filasPorPagina == null || $filasPorPagina == '' || $filasPorPagina == 0){
-            $filasPorPagina = 15;
-        }
-
-        $filasPorPagina = $request->input('filasPorPagina', $filasPorPagina);
         $paginaActual = $request->input('pagina', 1);
-        Cache::put('filasPorPagina', $filasPorPagina);
+        $filasPorPaginaInput = $request->input('filasPorPagina');
+        $ordenTareasInput = $request->input('ordenTareas');
 
-        $ordenTareas = 'asc';
-
-        if(Cache::has('ordenTareas')){
-            $ordenTareas = Cache::get('ordenTareas');
+        if ($filasPorPaginaInput) {
+            Cache::put('filasPorPagina', $filasPorPaginaInput, Carbon::now()->addMinutes(60));
+            $filasPorPagina = $filasPorPaginaInput;
+        } else {
+            $filasPorPagina = Cache::remember('filasPorPagina', Carbon::now()->addMinutes(60), function () {
+                return 15;
+            });
         }
 
-        if($ordenTareas == null || $ordenTareas == ''){
-            $ordenTareas = 'asc';
+        if ($ordenTareasInput) {
+            Cache::put('ordenTareas', $ordenTareasInput, Carbon::now()->addMinutes(60));
+            $ordenTareas = $ordenTareasInput;
+        } else {
+            $ordenTareas = Cache::remember('ordenTareas', Carbon::now()->addMinutes(60), function () {
+                return 'asc';
+            });
         }
-
-        $ordenTareas = $request->input('ordenTareas', $ordenTareas);
-        Cache::put('ordenTareas', $ordenTareas);
 
         $response = Http::withHeaders([
             "Accept" => "application/json",

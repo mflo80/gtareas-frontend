@@ -14,35 +14,27 @@ class HistorialController extends Controller
         $usuarioLogueado = $this->getActiveUserData();
         $token = $this->getActiveUserToken();
 
-        $filasPorPaginaHistorialTareas = 16;
-
-        if(Cache::has('filasPorPaginaHistorialTareas')){
-            $filasPorPaginaHistorialTareas = Cache::get('filasPorPaginaHistorialTareas');
-
-            if($filasPorPaginaHistorialTareas == null || $filasPorPaginaHistorialTareas == '' || $filasPorPaginaHistorialTareas == 0){
-                $filasPorPaginaHistorialTareas = 16;
-            }
-        }
-
-        $filasPorPaginaHistorialTareas = $request->input('filasPorPaginaHistorialTareas', $filasPorPaginaHistorialTareas);
         $paginaActualHistorialTareas  = $request->input('pagina', 1);
+        $filasPorPaginaHistorialTareasInput = $request->input('filasPorPaginaHistorialTareas');
+        $ordenHistorialInput = $request->input('ordenHistorial');
 
-        if(Cache::has('filasPorPaginaHistorialTareas') == false){
-            Cache::put('filasPorPaginaHistorialTareas', $filasPorPaginaHistorialTareas, Carbon::now()->addMinutes(360));
+        if ($filasPorPaginaHistorialTareasInput) {
+            Cache::put('filasPorPaginaHistorialTareas', $filasPorPaginaHistorialTareasInput, Carbon::now()->addMinutes(60));
+            $filasPorPaginaHistorialTareas = $filasPorPaginaHistorialTareasInput;
+        } else {
+            $filasPorPaginaHistorialTareas = Cache::remember('filasPorPaginaHistorialTareas', Carbon::now()->addMinutes(60), function () {
+                return 15;
+            });
         }
 
-        $ordenHistorial = 'desc';
-
-        if(Cache::has('ordenHistorial')){
-            $ordenHistorial = Cache::get('ordenHistorial');
+        if ($ordenHistorialInput) {
+            Cache::put('ordenHistorial', $ordenHistorialInput, Carbon::now()->addMinutes(60));
+            $ordenHistorial = $ordenHistorialInput;
+        } else {
+            $ordenHistorial = Cache::remember('ordenHistorial', Carbon::now()->addMinutes(60), function () {
+                return 'asc';
+            });
         }
-
-        if($ordenHistorial == null || $ordenHistorial == ''){
-            $ordenHistorial = 'desc';
-        }
-
-        $ordenHistorial = $request->input('ordenHistorial', $ordenHistorial);
-        Cache::put('ordenHistorial', $ordenHistorial, Carbon::now()->addMinutes(360));
 
         $response = Http::withHeaders([
             "Accept" => "application/json",
@@ -163,35 +155,27 @@ class HistorialController extends Controller
         $usuarioLogueado = $this->getActiveUserData();
         $token = $this->getActiveUserToken();
 
-        $filasPorPaginaHistorialComentarios = 16;
+        $paginaActualHistorialComentarios  = $request->input('pagina', 1);
+        $filasPorPaginaHistorialComentariosInput = $request->input('filasPorPaginaHistorialComentarios');
+        $ordenHistorialComentariosInput = $request->input('ordenHistorialComentarios');
 
-        if(Cache::has('filasPorPaginaHistorialComentarios')){
-            $filasPorPaginaHistorialComentarios = Cache::get('filasPorPaginaHistorialComentarios');
-
-            if($filasPorPaginaHistorialComentarios == null || $filasPorPaginaHistorialComentarios == '' || $filasPorPaginaHistorialComentarios == 0){
-                $filasPorPaginaHistorialComentarios = 16;
-            }
+        if ($filasPorPaginaHistorialComentariosInput) {
+            Cache::put('filasPorPaginaHistorialComentarios', $filasPorPaginaHistorialComentariosInput, Carbon::now()->addMinutes(60));
+            $filasPorPaginaHistorialComentarios = $filasPorPaginaHistorialComentariosInput;
+        } else {
+            $filasPorPaginaHistorialComentarios = Cache::remember('filasPorPaginaHistorialComentarios', Carbon::now()->addMinutes(60), function () {
+                return 15;
+            });
         }
 
-        $filasPorPaginaHistorialComentarios = $request->input('filasPorPaginaHistorialComentarios', $filasPorPaginaHistorialComentarios);
-        $paginaActualHistorialComentarios = $request->input('pagina', 1);
-
-        if(Cache::has('filasPorPaginaHistorialComentarios') == false){
-            Cache::put('filasPorPaginaHistorialComentarios', $filasPorPaginaHistorialComentarios, Carbon::now()->addMinutes(360));
+        if ($ordenHistorialComentariosInput) {
+            Cache::put('ordenHistorialComentarios', $ordenHistorialComentariosInput, Carbon::now()->addMinutes(60));
+            $ordenHistorialComentarios = $ordenHistorialComentariosInput;
+        } else {
+            $ordenHistorialComentarios = Cache::remember('ordenHistorialComentarios', Carbon::now()->addMinutes(60), function () {
+                return 'asc';
+            });
         }
-
-        $ordenHistorialComentarios = 'desc';
-
-        if(Cache::has('ordenHistorialComentarios')){
-            $ordenHistorialComentarios = Cache::get('ordenHistorialComentarios');
-        }
-
-        if($ordenHistorialComentarios == null || $ordenHistorialComentarios == ''){
-            $ordenHistorialComentarios = 'desc';
-        }
-
-        $ordenHistorialComentarios = $request->input('ordenHistorialComentarios', $ordenHistorialComentarios);
-        Cache::put('ordenHistorialComentarios', $ordenHistorialComentarios, Carbon::now()->addMinutes(360));
 
         $response = Http::withHeaders([
             "Accept" => "application/json",

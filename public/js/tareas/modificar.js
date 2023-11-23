@@ -55,6 +55,31 @@ campoFechaHoraFin.addEventListener('input', () => {
     }
 });
 
+// Limitar la longitud del campo de título
+
+const titulo = document.getElementById('titulo');
+const maxLengthTitulo = 45;
+
+titulo.addEventListener('input', () => {
+    const text = titulo.value;
+    if (text.length > maxLengthTitulo) {
+        titulo.value = text.slice(0, maxLengthTitulo);
+    }
+});
+
+// Textarea límite de texto
+
+const textarea = document.querySelector('textarea');
+const maxLengthTextArea = 200;
+
+textarea.addEventListener('input', () => {
+    const text = textarea.value;
+    if (text.length > maxLengthTextArea) {
+        textarea.value = text.slice(0, maxLengthTextArea);
+    }
+});
+
+
 // Modal de confirmación de eliminación y modificación
 
 $(document).ready(function() {
@@ -263,29 +288,4 @@ botonEliminar.addEventListener('click', function() {
         resultadosBusqueda.appendChild(opcion);
     });
 });
-
-// Limitar la longitud del campo de título
-
-const titulo = document.getElementById('titulo');
-const maxLengthTitulo = 30;
-
-titulo.addEventListener('input', () => {
-    const text = titulo.value;
-    if (text.length > maxLengthTitulo) {
-        titulo.value = text.slice(0, maxLengthTitulo);
-    }
-});
-
-// Textarea límite de texto
-
-const textarea = document.querySelector('textarea');
-const maxLengthTextArea = 150;
-
-textarea.addEventListener('input', () => {
-    const text = textarea.value;
-    if (text.length > maxLengthTextArea) {
-        textarea.value = text.slice(0, maxLengthTextArea);
-    }
-});
-
 
