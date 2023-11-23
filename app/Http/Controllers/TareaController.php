@@ -478,6 +478,9 @@ class TareaController extends Controller
         $token = $this->getActiveUserToken();
         $usuarioLogueado = $this->getActiveUserData();
 
+        $idsUsuarios = $request->input('idsUsuarios');
+        $idUsuarioCreador = $request->input('idUsuarioCreador');
+
         $tarea = $request->validate([
             'id' => ['required', 'string'],
             'titulo' => ['required', 'string'],
@@ -491,9 +494,6 @@ class TareaController extends Controller
             'texto.required' => 'Debe ingresar el texto de la tarea.',
         ]);
 
-        $idsUsuarios = $request->input('idsUsuarios');
-        $idUsuarioCreador = $request->input('idUsuarioCreador');
-
         $fechaHoraInicio = DateTime::createFromFormat('Y-m-d\TH:i', $tarea['fecha_hora_inicio']);
         $tarea['fecha_hora_inicio'] = $fechaHoraInicio->format('Y-m-d H:i:s');
 
@@ -501,6 +501,7 @@ class TareaController extends Controller
         $tarea['fecha_hora_fin'] = $fechaHoraFin->format('Y-m-d H:i:s');
 
         $tarea['id_usuario_modificacion'] = $usuarioLogueado['id'];
+        $tarea['id_usuario'] = $idUsuarioCreador;
 
         $response = Http::withHeaders([
             "Accept" => "application/json",
@@ -524,8 +525,8 @@ class TareaController extends Controller
                 ]);
             }
 
-            $usuarioAsignadoCorrectamente = [];
-
+            $usuarioAsignadoAgregadoCorrectamente = false;
+            $usuarioAsignadoEliminadoCorrectamente = false;
 
             $usuariosAsignadosAgregados = array_diff($idsUsuarios, $usuariosAsignados);
             $usuariosAsignadosEliminados = array_diff($usuariosAsignados, $idsUsuarios);
@@ -543,8 +544,16 @@ class TareaController extends Controller
                         "Authorization" => "Bearer $token"
                     ])->post(getenv("GTAPI_ASIGNA"), $datosAsigna);
 
+                    $valores = json_decode($response->body(), true);
+
                     if($response->getStatusCode() == 200){
-                        $usuarioAsignadoCorrectamente[] = $response->body();
+                        $usuarioAsignadoAgregadoCorrectamente = true;
+                    }
+
+                    if($response->getStatusCode() != 200){
+                        return redirect()->route('tareas.modificar', ['id' => $tarea['id']])->withErrors([
+                            'message' => $valores['message'],
+                        ]);
                     }
                 }
             }
@@ -556,13 +565,21 @@ class TareaController extends Controller
                         "Authorization" => "Bearer $token"
                     ])->delete(getenv("GTAPI_ASIGNA")."/".$idUsuarioCreador."/".$idUsuario."/".$tarea['id']);
 
+                    $valores = json_decode($response->body(), true);
+
                     if($response->getStatusCode() == 200){
-                        $usuarioAsignadoCorrectamente[] = $response->body();
+                        $usuarioAsignadoEliminadoCorrectamente = true;
+                    }
+
+                    if($response->getStatusCode() != 200){
+                        return redirect()->route('tareas.modificar', ['id' => $tarea['id']])->withErrors([
+                            'message' => $valores['message'],
+                        ]);
                     }
                 }
             }
 
-            if($usuarioAsignadoCorrectamente){
+            if($usuarioAsignadoAgregadoCorrectamente || $usuarioAsignadoEliminadoCorrectamente){
                 return redirect()->route('tareas.modificar', ['id' => $tarea['id']])->withErrors([
                     'message' => 'La tarea fue modificada correctamente'
                 ]);
