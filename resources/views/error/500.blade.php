@@ -14,8 +14,8 @@
         <p>Lo sentimos, estamos trabajando para solucionar el problema.</p>
     </div>
 
-    <div class="error-grupo">
-        <div class="error-mensaje">
+    <div class="error-grupo-404">
+        <div class="error-mensaje-404">
             @foreach ($errors->all() as $message)
                 <p id="error">{{ $message }}</p>
             @break
