@@ -76,7 +76,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Confirmar cambio de categoría</h2>
+                <h3 class="modal-title">Confirmar cambio de categoría</h3>
             </div>
             <div class="modal-body">
                 <p>¿Estás seguro de que quieres cambiar la categoría de esta tarea?</p>

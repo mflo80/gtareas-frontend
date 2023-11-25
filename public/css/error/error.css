@@ -1,4 +1,19 @@
-.error-404-grupo{
+.error-404-imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+    margin-left: -8rem;
+}
+
+.error-500-imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+}
+
+.error-grupo{
     width: 100%;
     height: 5rem;
     margin-top: 1rem;
@@ -6,14 +21,14 @@
     font-size: 1.3rem;
 }
 
-.error-404-mensaje{
+.error-mensaje{
     width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.error-404-mensaje p{
+.error-mensaje p{
     width: 36rem;
     height: 3rem;
     color: rgb(212, 209, 190);

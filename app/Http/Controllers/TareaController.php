@@ -153,7 +153,13 @@ class TareaController extends Controller
             ]);
         }
 
-        return redirect()->route('tareas.error')->withErrors([
+        if($response->getStatusCode() == 404){
+            return redirect()->route('tareas.error-404')->withErrors([
+                'message' => $valores['message'],
+            ]);
+        }
+
+        return redirect()->route('tareas.error-500')->withErrors([
             'message' => $valores['message'],
         ]);
     }
@@ -227,14 +233,14 @@ class TareaController extends Controller
                 }, $usuariosAsignados);
 
                 if($usuarioLogueado['id'] != $usuarioCreadorId && !in_array($usuarioLogueado['id'], $idsUsuariosAsignados)){
-                    return redirect()->route('tareas.error')->withErrors([
+                    return redirect()->route('tareas.error-404')->withErrors([
                         'message' => "No tiene permisos sobre esta tarea."
                     ]);
                 }
             }
 
             if ($usuarioCreador == null || !is_array($usuarioCreador)) {
-                return redirect()->route('tareas.error')->withErrors([
+                return redirect()->route('tareas.error-404')->withErrors([
                     'message' => "Error al obtener los usuarios creador de la tarea."
                 ]);
             }
@@ -252,7 +258,13 @@ class TareaController extends Controller
             ]);
         }
 
-        return redirect()->route('tareas.error')->withErrors([
+        if($response->getStatusCode() == 404){
+            return redirect()->route('tareas.error-404')->withErrors([
+                'message' => $valores['message'],
+            ]);
+        }
+
+        return redirect()->route('tareas.error-500')->withErrors([
             'message' => $valores['message'],
         ]);
     }
@@ -279,7 +291,14 @@ class TareaController extends Controller
             ]);
         }
 
-        return redirect()->route('tareas.error')->withErrors([
+
+        if($response->getStatusCode() == 404){
+            return redirect()->route('tareas.error-404')->withErrors([
+                'message' => $valores['message'],
+            ]);
+        }
+
+        return redirect()->route('tareas.error-500')->withErrors([
             'message' => $valores['message'],
         ]);
     }
@@ -444,7 +463,7 @@ class TareaController extends Controller
                 }, $usuariosAsignados);
 
                 if($usuarioLogueado['id'] != $usuarioCreadorId && !in_array($usuarioLogueado['id'], $idsUsuariosAsignados)){
-                    return redirect()->route('tareas.error')->withErrors([
+                    return redirect()->route('tareas.error-404')->withErrors([
                         'message' => "No tiene permisos para modificar esta tarea."
                     ]);
                 }
@@ -460,7 +479,14 @@ class TareaController extends Controller
             ]);
         }
 
-        return redirect()->route('tareas.error')->withErrors([
+
+        if($response->getStatusCode() == 404){
+            return redirect()->route('tareas.error-404')->withErrors([
+                'message' => $valores['message'],
+            ]);
+        }
+
+        return redirect()->route('tareas.error-500')->withErrors([
             'message' => $valores['message'],
         ]);
     }
@@ -635,7 +661,14 @@ class TareaController extends Controller
                 'success', 'La tarea fue eliminada correctamente');
         }
 
-        return redirect()->route('tareas.error')->withErrors([
+
+        if($response->getStatusCode() == 404){
+            return redirect()->route('tareas.error-404')->withErrors([
+                'message' => $valores['message'],
+            ]);
+        }
+
+        return redirect()->route('tareas.error-500')->withErrors([
             'message' => $valores['message'],
         ]);
     }

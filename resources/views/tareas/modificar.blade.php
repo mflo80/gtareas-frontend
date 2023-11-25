@@ -102,7 +102,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="confirmModificarModalLabel">Confirmar modificación</h5>
+                    <h3 class="modal-title" id="confirmModificarModalLabel">Confirmar modificación</h3>
                 </div>
                 <div class="modal-body">
                     ¿Estás seguro de que quieres modificar esta tarea?
@@ -126,7 +126,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación</h5>
+                    <h3 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación</h3>
                 </div>
                 <div class="modal-body">
                     ¿Estás seguro de que quieres eliminar esta tarea?

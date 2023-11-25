@@ -113,7 +113,7 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="confirmCrearModalLabel">Confirmar crear tarea</h5>
+                <h3 class="modal-title" id="confirmCrearModalLabel">Confirmar crear tarea</h3>
             </div>
             <div class="modal-body">
                 ¿Estás seguro de que quieres crear esta tarea?

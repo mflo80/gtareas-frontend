@@ -1,0 +1,13 @@
+.tutorial-cambiar-categoria {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    color: bisque;
+    font-size: 1.5rem;
+}
+
+.tutorial-cambiar-categoria video {
+    width: 90%;
+    height: auto;
+    margin-left: 5%;
+    margin-right: 5%;
+}

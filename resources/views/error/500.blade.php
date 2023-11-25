@@ -2,16 +2,16 @@
 
 @section('gtareas-inicio')
 
-    <div class="error-404-imagen">
-        <img class="error-404-img" src="{{ asset('/img/error-404.png') }}" alt="Error">
+    <div class="error-500-imagen">
+        <img class="error-500-img" src="{{ asset('/img/error-500.png') }}" alt="Error">
     </div>
 
     <div class="error-subtitulo">
-        <a>Página no encontrada</a>
+        <a>Upsss!</a>
     </div>
 
     <div class="error-texto">
-        <p>Lo sentimos, la página que estás buscando no se pudo encontrar.</p>
+        <p>Lo sentimos, estamos trabajando para solucionar el problema.</p>
     </div>
 
     <div class="error-grupo">

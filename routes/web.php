@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\InicioController;
+use App\Http\Controllers\AyudaController;
 use App\Http\Controllers\TareaController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\HistorialController;
@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', "index")->name('index');
 
-Route::controller(InicioController::class)->middleware('autenticacion')->group(function () {
-    Route::get('ayuda', 'ayuda')->name('tareas.ayuda');
-    Route::get('buscar', 'buscar')->name('tareas.buscar');
+Route::controller(AyudaController::class)->middleware('autenticacion')->group(function () {
+    Route::get('acerca', 'acerca')->name('opciones.acerca');
+    Route::get('tutorial', 'tutorial')->name('opciones.tutorial');
+    Route::get('modificar-password', 'formulario_password')->name('opciones.password');
+    Route::put('modificar-password', 'modificar_password');
 });
 
 Route::controller(TareaController::class)->middleware('autenticacion')->group(function () {
@@ -60,9 +62,10 @@ Route::controller(PasswordController::class)->middleware('guest')->group(functio
 });
 
 Route::controller(ErrorController::class)->middleware('autenticacion')->group(function () {
-    Route::get('error-404', 'index')->name('tareas.error');
+    Route::get('error-404', 'error_404')->name('tareas.error-404');
+    Route::get('error-500', 'error_500')->name('tareas.error-500');
 });
 
 Route::fallback(function () {
-    return redirect()->route('tareas.error');
+    return redirect()->route('tareas.error-404');
 });

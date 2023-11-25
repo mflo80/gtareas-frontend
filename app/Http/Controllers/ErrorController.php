@@ -8,11 +8,17 @@ use Illuminate\Support\Facades\Http;
 
 class ErrorController extends Controller
 {
-    public function index()
+    public function error_404()
     {
         $usuarioLogueado = $this->getActiveUserData();
 
         return view('error.404', ['usuarioLogueado' => $usuarioLogueado]);
     }
 
+    public function error_500()
+    {
+        $usuarioLogueado = $this->getActiveUserData();
+
+        return view('error.500', ['usuarioLogueado' => $usuarioLogueado]);
+    }
 }

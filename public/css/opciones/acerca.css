@@ -1,0 +1,51 @@
+h2 {
+    margin-top: 8rem;
+    text-align: center;
+    font-size: 3rem;
+    color: bisque;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+.acerca-contenido {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 6rem;
+    padding: 2rem;
+    background-color: rgb(1, 51, 92);
+    border-radius: 1rem;
+}
+
+.acerca-usuario p {
+    width: 100%;
+    text-align: left;
+    font-size: 2rem;
+    color: bisque;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+
+.acerca-texto-uno p {
+    width: 100%;
+    padding: .5rem;
+    text-align: left;
+    text-indent: 5rem;
+    font-size: 2rem;
+    color: rgb(255, 255, 255);
+}
+
+.acerca-texto-dos p {
+    width: 100%;
+    padding: .5rem;
+    text-align: left;
+    font-size: 2rem;
+    color: rgb(255, 255, 255);
+}
+
+.acerca-logo {
+    width: 100%;
+    text-align: center;
+}
+
+.acerca-logo img {
+    width: 20rem;
+}

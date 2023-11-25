@@ -22,17 +22,20 @@ class ComentarioController extends Controller
             "Authorization" => "Bearer $token"
         ])->post(getenv('GTAPI_COMENTARIOS'), $datos);
 
+        $valores = $response->json();
 
-        if ($response->successful()) {
+        if ($response->getStatusCode() == 200) {
             return redirect()->route('tareas.ver', [
-                'id' => $request->input('id_tarea')
-            ])->with('success', 'Comentario creado correctamente');
+                'id' => $datos['id_tarea']
+            ]);
         }
 
-        if ($response->getStatusCode() != 200) {
+        if ($response->getStatusCode() == 500) {
             return redirect()->route('tareas.ver', [
-                'id' => $request->input('id_tarea')
-            ])->with('error', 'Error al crear el comentario');
+                'id' => $datos['id_tarea']
+            ])->withErrors([
+                'message' => $valores['message'],
+            ]);
         }
     }
 
@@ -53,16 +56,20 @@ class ComentarioController extends Controller
             "Authorization" => "Bearer $token"
         ])->put(getenv('GTAPI_COMENTARIOS') . '/' . $id, $datos);
 
-        if ($response->successful()) {
+        $valores = $response->json();
+
+        if ($response->getStatusCode() == 200) {
             return redirect()->route('tareas.ver', [
-                'id' => $request->input('id_tarea')
-            ])->with('success', 'Comentario actualizado correctamente');
+                'id' => $datos['id_tarea']
+            ]);
         }
 
         if ($response->getStatusCode() != 200) {
             return redirect()->route('tareas.ver', [
-                'id' => $request->input('id_tarea')
-            ])->with('error', 'Error al actualizar el comentario');
+                'id' => $datos['id_tarea']
+            ])->withErrors([
+                'message' => $valores['message'],
+            ]);
         }
     }
 
@@ -77,16 +84,20 @@ class ComentarioController extends Controller
             "Authorization" => "Bearer $token"
         ])->delete(getenv('GTAPI_COMENTARIOS') . '/' . $id);
 
+        $valores = $response->json();
+
         if ($response->successful()) {
             return redirect()->route('tareas.ver', [
                 'id' => $id_tarea
-            ])->with('success', 'Comentario eliminado correctamente');
+            ]);
         }
 
         if ($response->getStatusCode() != 200) {
             return redirect()->route('tareas.ver', [
                 'id' => $id_tarea
-            ])->with('error', 'Error al eliminar el comentario');
+            ])->withErrors([
+                'message' => $valores['message'],
+            ]);
         }
     }
 }
