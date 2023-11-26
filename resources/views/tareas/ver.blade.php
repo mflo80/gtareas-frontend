@@ -130,9 +130,15 @@
                             <span>{{ $tareaComentario['nombre_usuario'] }} {{ $tareaComentario['apellido_usuario'] }}</span>
                         </span>
                         <span class="ver-botones">
-                            <button type="button" class="btn-rojo" id="eliminar{{ $index }}" onclick="document.getElementById('formComentarioEliminar{{ $index }}').submit();" style="display: none;">Eliminar</button>
-                            <button type="button" class="btn-gris" id="cancelar{{ $index }}" onclick="cancelarModificacion({{ $index }});" style="display: none;">Cancelar</button>
-                            <button type="button" class="btn-gris" id="modificar{{ $index }}" onclick="activarTextarea({{ $index }}),
+                            <!-- Botón para abrir el modal -->
+                            <button type="button" class="btn-rojo" id="eliminar{{ $index }}"
+                                onclick="$('#modalEliminar{{ $index }}').modal('show');"
+                                style="display: none;">Eliminar</button>
+                            <button type="button" class="btn-gris" id="cancelar{{ $index }}"
+                                onclick="cancelarModificacion({{ $index }});"
+                                style="display: none;">Cancelar</button>
+                            <button type="button" class="btn-gris" id="modificar{{ $index }}"
+                                onclick="activarTextarea({{ $index }}),
                                 document.getElementById('formComentario{{ $index }}');"
                                 {{ $tareaComentario['id_usuario'] != $usuarioLogueado['id'] ? 'disabled' : '' }}>Modificar</button>
                             <button type="submit" class="btn-azul" id="enviar{{ $index }}" style="display: none;">Enviar</button>
@@ -145,6 +151,24 @@
                     <input type="hidden" id="id{{ $index }}" name="id" value="{{ $tareaComentario['id'] }}">
                     <input type="hidden" id="id_tarea{{ $index }}" name="id_tarea" value="{{ $tarea['id'] }}">
                 </form>
+
+                <!-- Modal Eliminar Comentario-->
+                <div class="modal fade" id="modalEliminar{{ $index }}" tabindex="-1" role="dialog" aria-labelledby="modalEliminarLabel{{ $index }}" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="modalEliminarLabel{{ $index }}">Confirmar eliminación</h3>
+                            </div>
+                            <div class="modal-body">
+                                ¿Estás seguro de que quieres eliminar este comentario?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <button type="button" class="btn btn-primary" onclick="document.getElementById('formComentarioEliminar{{ $index }}').submit();">Si</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endforeach
         </div>
         <div class="contenedorComentario" id="contenedorComentario">
@@ -179,7 +203,6 @@
         </div>
     </div>
 </div>
-
 
 <script>window.document.title = 'Gestor de Tareas - Tarea Comentarios';</script>
 

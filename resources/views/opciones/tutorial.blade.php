@@ -18,7 +18,7 @@
         </div>
 
         <div class="tutorial-cambiar-categoria">
-            <h3>1) Cómo cambiar la categoría de una tarea desde la página de inicio:</h3>
+            <h3>1) Cómo cambiar la categoría de una tarea en la página de inicio, arrastrando esta hacia a otra categoría:</h3>
             <video controls>
                 <source src="{{ asset('media/cambiar-categoria-1.mp4') }}" type="video/mp4">
                 Tu navegador no soporta el elemento de video.

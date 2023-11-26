@@ -713,7 +713,6 @@ class TareaController extends Controller
                 'success', 'La tarea fue eliminada correctamente');
         }
 
-
         if($response->getStatusCode() == 404){
             return redirect()->route('tareas.error-404')->withErrors([
                 'message' => $valores['message'],
