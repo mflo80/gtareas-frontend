@@ -23,15 +23,15 @@
             <p>
                 La aplicación permite gestionar tareas, permitiendo crear, editar, eliminar y marcar como finalizadas las tareas. Al crear
                 una tarea, se puede asignar uno o más usuarios a la misma, y cada usuario puede ver las tareas asignadas a él. A cada uno
-                de ellos se le envía un correo electrónico cuando se le asigna una tarea.
+                de ellos se le envía un correo electrónico cuando se le asigna una tarea, tanto cuando se crea, como cuando se modifica.
             </p>
             <p>
                 En esta versión, se agregó la posibilidad de crear, modificar y eliminar comentarios en cada tarea, por parte de los
-                usuarios asignados a la tarea.
+                usuarios asignados a la misma.
             </p>
             <p>
                 También cuenta con la posibilidad de buscar todas las tareas, y en mostrar un historial con las modificaciones realizadas tanto
-                en las tareas como en los comentarios realizados.
+                en las tareas, como en los comentarios realizados.
             </p>
             <p>
                 La aplicación fue desarrollada utilizando el framework Laravel 10, y el motor de base de datos MySQL 8, en un entorno de desarrollo

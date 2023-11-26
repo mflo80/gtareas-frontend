@@ -32,7 +32,7 @@ class HistorialController extends Controller
             $ordenHistorialTareas = $ordenHistorialTareasInput;
         } else {
             $ordenHistorialTareas = Cache::remember('ordenHistorialTareas'.$usuarioLogueado['id'], Carbon::now()->addMinutes(60), function () {
-                return 'asc';
+                return 'desc';
             });
         }
 
@@ -172,7 +172,7 @@ class HistorialController extends Controller
             $ordenHistorialComentarios = $ordenHistorialComentariosInput;
         } else {
             $ordenHistorialComentarios = Cache::remember('ordenHistorialComentarios'.$usuarioLogueado['id'], Carbon::now()->addMinutes(60), function () {
-                return 'asc';
+                return 'desc';
             });
         }
 

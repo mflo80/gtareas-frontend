@@ -30,7 +30,7 @@ class ComentarioController extends Controller
             ]);
         }
 
-        if ($response->getStatusCode() == 500) {
+        if ($response->getStatusCode() != 200) {
             return redirect()->route('tareas.ver', [
                 'id' => $datos['id_tarea']
             ])->withErrors([

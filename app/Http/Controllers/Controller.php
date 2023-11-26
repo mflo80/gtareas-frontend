@@ -40,14 +40,14 @@ class Controller extends BaseController
 
         $valores = $response->json();
 
+        $usuarios = [];
+
         if($response->getStatusCode() == 200){
             $usuarios = $valores['usuarios'];
             return $usuarios;
         }
 
-        if($response->getStatusCode() != 200){
-            return $usuarios = [];
-        }
+        return $usuarios;
     }
 
     public function getTareas()
@@ -61,14 +61,14 @@ class Controller extends BaseController
 
         $valores = $response->json();
 
+        $tareas = [];
+
         if($response->getStatusCode() == 200){
             $tareas = $valores['tareas'];
             return $tareas;
         }
 
-        if($response->getStatusCode() != 200){
-            return $tareas = [];
-        }
+        return $tareas;
     }
 
     public function getTareasAsignadas(){
@@ -81,14 +81,14 @@ class Controller extends BaseController
 
         $valores = $response->json();
 
-        if ($response->successful()) {
+        $tareasAsignadas = [];
+
+        if($response->getStatusCode() == 200){
             $tareasAsignadas = $valores['tareas'];
             return $tareasAsignadas;
         }
 
-        if ($response->getStatusCode() != 200) {
-            return $tareasAsignadas = [];
-        }
+        return $tareasAsignadas;
     }
 
     public function getTareaAsignada($id_tarea){
@@ -101,14 +101,14 @@ class Controller extends BaseController
 
         $valores = $response->json();
 
-        if ($response->successful()) {
+        $tareaAsignada = [];
+
+        if($response->getStatusCode() == 200){
             $tareaAsignada = $valores['tarea_asignada'];
             return $tareaAsignada;
         }
 
-        if ($response->getStatusCode() != 200) {
-            return $tareaAsignada = [];
-        }
+        return $tareaAsignada;
     }
 
     public function getTareaAsignadaUsuario($id_usuario)
@@ -122,14 +122,14 @@ class Controller extends BaseController
 
         $valores = $response->json();
 
+        $tareasAsignadas = [];
+
         if($response->getStatusCode() == 200){
             $tareasAsignadas = $valores['tareas_asignadas'];
             return $tareasAsignadas;
         }
 
-        if ($response->getStatusCode() != 200) {
-            return $tareasAsignadas = [];
-        }
+        return $tareasAsignadas;
     }
 
     public function getTareasComentarios($id_tarea){
